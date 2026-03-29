@@ -9,20 +9,31 @@ import java.util.Scanner;
 
 public class main {
     public static void main(String[] args) {
+        AppContext appContext = new AppContext();
+        AppState appState = appContext.getAppState();
+
         Scanner scn = new Scanner(System.in);
-        boolean isOn = true;
+        CommandParser cmdParser = null;
         try {
             Map<String, Command> commands = CommandLoader.loadCommands("src/main/java/com/wpn/kanban/parser/commands.json");
-            new CommandParser(commands);
+            cmdParser = new CommandParser(commands);
         } catch(Exception e) {
-            isOn = false;
+            appState.stop();
             System.out.println("Unable to load commands: " + e);
         }
-        while(isOn) {
-            String input = scn.next();
 
-            if(input.equals("1")) {
-                return;
+        if(cmdParser == null){
+            appState.stop();
+        }
+
+        while(appState.isRunning()) {
+            System.out.print("> ");
+            String input = scn.next();
+            try {
+                assert cmdParser != null;
+                cmdParser.parse(input, appContext);
+            } catch(Exception e) {
+                System.out.println(e);
             }
         }
     }

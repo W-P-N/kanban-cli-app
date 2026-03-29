@@ -4,9 +4,9 @@ import com.wpn.kanban.cli.AppContext;
 
 import java.util.Map;
 
-public class HelpCommand implements Command {
+public class QuitCommand implements Command{
     public String getName() {
-        return "help";
+        return "quit";
     }
 
     public String getDescription() {
@@ -14,6 +14,7 @@ public class HelpCommand implements Command {
     }
 
     public void execute(AppContext appContext) {
-
+        appContext.getAppState().stop();
+        return;
     }
 }
