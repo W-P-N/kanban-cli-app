@@ -15,13 +15,12 @@ public class CommandParser {
     }
 
     public void parse(String input, AppContext appContext) throws InvalidCommandException {
-        if(!commandRegistry.containsKey(input)) {
+        String sanitizedInput = input.trim();
+        if(!commandRegistry.containsKey(sanitizedInput)) {
             throw new InvalidCommandException("Invalid Command");
         }
-        String sanitizedInput = input.trim();
         Command cmd = commandRegistry.get(sanitizedInput);
-        cmd.execute(appContext); // Accepts Map<String,String> args;
-        // What next?
+        cmd.execute(appContext);
     }
 
 }

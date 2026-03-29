@@ -8,7 +8,8 @@ import java.util.Map;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class CommandLoader {
+public final class CommandLoader {
+    private CommandLoader() {};
     public static Map<String,Command> loadCommands(String configPath) throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String,Command> registry = new HashMap<>();

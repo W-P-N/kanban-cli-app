@@ -1,5 +1,6 @@
 package com.wpn.kanban.cli;
 
+import com.wpn.kanban.exceptions.InvalidCommandException;
 import com.wpn.kanban.parser.Command;
 import com.wpn.kanban.parser.CommandLoader;
 import com.wpn.kanban.parser.CommandParser;
@@ -30,10 +31,9 @@ public class main {
             System.out.print("> ");
             String input = scn.next();
             try {
-                assert cmdParser != null;
                 cmdParser.parse(input, appContext);
-            } catch(Exception e) {
-                System.out.println(e);
+            } catch(InvalidCommandException e) {
+                System.out.println(e.getMessage());
             }
         }
     }
