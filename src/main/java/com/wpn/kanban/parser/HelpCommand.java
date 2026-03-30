@@ -14,6 +14,8 @@ public class HelpCommand implements Command {
     }
 
     public void execute(AppContext appContext) {
-
+        System.out.println("""
+                Help Commands loading.
+                """);
     }
 }

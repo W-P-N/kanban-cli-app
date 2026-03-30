@@ -27,6 +27,7 @@ public class main {
             appState.stop();
         }
 
+        displayWelcome();
         while(appState.isRunning()) {
             System.out.print("> ");
             String input = scn.next();
@@ -38,4 +39,15 @@ public class main {
         }
     }
 
+    public static void displayWelcome() {
+        System.out.println("""
+                     _   __            _                   _____  _     _____\s
+                    | | / /           | |                 /  __ \\| |   |_   _|
+                    | |/ /  __ _ _ __ | |__   __ _ _ __   | /  \\/| |     | | \s
+                    |    \\ / _` | '_ \\| '_ \\ / _` | '_ \\  | |    | |     | | \s
+                    | |\\  \\ (_| | | | | |_) | (_| | | | | | \\__/\\| |_____| |_\s
+                    \\_| \\_/\\__,_|_| |_|_.__/ \\__,_|_| |_|  \\____/\\_____/\\___/\s
+                    """);
+        System.out.println("Welcome to Kanban CLI. Type help to see commands.");
+    };
 }
