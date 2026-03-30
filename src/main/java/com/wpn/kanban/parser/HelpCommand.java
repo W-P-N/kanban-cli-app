@@ -13,7 +13,7 @@ public class HelpCommand implements Command {
         return "";
     }
 
-    public void execute(AppContext appContext) {
+    public void execute(AppContext appContext, String[] args) {
         System.out.println("""
                 Help Commands loading.
                 """);

@@ -30,7 +30,7 @@ public class main {
         displayWelcome();
         while(appState.isRunning()) {
             System.out.print("> ");
-            String input = scn.next();
+            String input = scn.nextLine();
             try {
                 cmdParser.parse(input, appContext);
             } catch(InvalidCommandException e) {

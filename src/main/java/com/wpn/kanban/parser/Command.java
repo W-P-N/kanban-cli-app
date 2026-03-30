@@ -7,5 +7,5 @@ import java.util.Map;
 public interface Command {
     String getName();
     String getDescription();
-    void execute(AppContext appContext);
+    void execute(AppContext appContext, String[] args);
 }

@@ -42,4 +42,8 @@ public class Board {
         }
         return taskList;
     }
+
+    public boolean equals(Board board) {
+        return (this.getBoardId() != board.getBoardId()) && (this.getBoardName().equals(board.getBoardName()));
+    }
 }

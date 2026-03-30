@@ -13,7 +13,7 @@ public class QuitCommand implements Command{
         return "";
     }
 
-    public void execute(AppContext appContext) {
+    public void execute(AppContext appContext, String[] args) {
         appContext.getAppState().stop();
         return;
     }
