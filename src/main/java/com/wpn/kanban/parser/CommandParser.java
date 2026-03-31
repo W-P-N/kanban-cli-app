@@ -30,7 +30,11 @@ public class CommandParser {
         if(!cmd.validateArgs(inputArray)) {
             return;
         }
-        cmd.execute(appContext, inputArray);
+        try {
+            cmd.execute(appContext, inputArray);
+        } catch() {
+
+        }
     }
 
 }

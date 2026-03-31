@@ -4,8 +4,6 @@ import com.wpn.kanban.cli.AppContext;
 import com.wpn.kanban.cli.AppState;
 import com.wpn.kanban.core.Board;
 
-import java.util.UUID;
-
 public class CreateCommand implements Command {
     public String getName() {
         return "create";
@@ -16,12 +14,14 @@ public class CreateCommand implements Command {
     }
 
     public void execute(AppContext appContext, String[] args) {
-        UUID boardId = UUID.randomUUID();
+        AppState appState = appContext.getAppState();
+        int boardId = appState.getBoardIdFromCounter();
         String boardName = args[1];
         Board newBoard = new Board(boardId, boardName);
-        AppState appState = appContext.getAppState();
-        appState.addBoard(newBoard);
-        return;
+        boolean boardAdded = appState.addBoard(newBoard);
+        if(!boardAdded) {
+            System.out.println("Board already exists.");
+        }
     }
 
     @Override

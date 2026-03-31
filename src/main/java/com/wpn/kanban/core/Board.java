@@ -1,24 +1,21 @@
 package com.wpn.kanban.core;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Board {
-    private UUID boardId;
+    private int boardId;
     private String boardName;
     private Map<Task, Status> taskMap;
 
-    public Board(UUID boardId, String boardName) {
+    public Board(int boardId, String boardName) {
         this.boardId = boardId;
         this.boardName = boardName;
         this.taskMap = new HashMap<>(10);
     }
 
-    public UUID getBoardId() {
+    public int getBoardId() {
         return boardId;
-    }
-
-    public void setBoardId(UUID boardId) {
-        this.boardId = boardId;
     }
 
     public String getBoardName() {
