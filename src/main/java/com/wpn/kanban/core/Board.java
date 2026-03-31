@@ -1,26 +1,23 @@
 package com.wpn.kanban.core;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Board {
-    private int boardId;
+    private UUID boardId;
     private String boardName;
     private Map<Task, Status> taskMap;
 
-    public Board(int boardId, String boardName) {
+    public Board(UUID boardId, String boardName) {
         this.boardId = boardId;
         this.boardName = boardName;
         this.taskMap = new HashMap<>(10);
     }
 
-    public int getBoardId() {
+    public UUID getBoardId() {
         return boardId;
     }
 
-    public void setBoardId(int boardId) {
+    public void setBoardId(UUID boardId) {
         this.boardId = boardId;
     }
 

@@ -27,6 +27,9 @@ public class CommandParser {
             throw new InvalidCommandException("Invalid Command");
         }
         Command cmd = commandRegistry.get(inputArray[0]);
+        if(!cmd.validateArgs(inputArray)) {
+            return;
+        }
         cmd.execute(appContext, inputArray);
     }
 
