@@ -15,7 +15,7 @@ public class ListCommand implements Command {
         return "Returns list of kanban boards with their IDs";
     }
 
-    public void execute(AppContext appContext, String[] args) {
+    public void execute(AppContext appContext, ParsedCommand parsedCommand) {
         AppState appState = appContext.getAppState();
         List<Board> boardList = appState.getBoardList();
         for(Board board: boardList) {

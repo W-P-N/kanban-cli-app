@@ -13,10 +13,10 @@ public class CreateCommand implements Command {
         return "Creates a new board > create <boardName>";
     }
 
-    public void execute(AppContext appContext, String[] args) {
+    public void execute(AppContext appContext, ParsedCommand parsedCommand) {
         AppState appState = appContext.getAppState();
         int boardId = appState.getBoardIdFromCounter();
-        String boardName = args[1];
+        String boardName = parsedCommand.getPositionalArgs().get(1);
         Board newBoard = new Board(boardId, boardName);
         boolean boardAdded = appState.addBoard(newBoard);
         if(!boardAdded) {
@@ -25,8 +25,8 @@ public class CreateCommand implements Command {
     }
 
     @Override
-    public boolean validateArgs(String[] args) {
-        if(args.length < 2) {
+    public boolean validateArgs(ParsedCommand parsedCommand) {
+        if(parsedCommand.getPositionalArgs().size() < 2) {
             System.out.println("Usage: create <boardName>");
             return false;
         }

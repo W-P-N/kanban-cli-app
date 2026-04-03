@@ -7,8 +7,8 @@ import java.util.Map;
 public interface Command {
     String getName();
     String getDescription();
-    void execute(AppContext appContext, String[] args);
-    default boolean validateArgs(String[] args) {
+    void execute(AppContext appContext, ParsedCommand parsedCommand);
+    default boolean validateArgs(ParsedCommand parsedCommand) {
         return true;
-    };
+    }
 }

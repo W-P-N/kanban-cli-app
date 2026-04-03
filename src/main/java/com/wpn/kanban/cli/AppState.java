@@ -34,4 +34,9 @@ public class AppState {
     public int getBoardIdFromCounter() {
         return boardIdCounter.incrementAndGet();
     }
+    public boolean deleteBoard(int boardId) {
+        boolean isBoardRemoved = false;
+        isBoardRemoved = boardList.removeIf(board -> board.getBoardId() == boardId);
+        return isBoardRemoved;
+    };
 }

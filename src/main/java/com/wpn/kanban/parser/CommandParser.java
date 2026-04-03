@@ -5,6 +5,7 @@ import com.wpn.kanban.exceptions.InvalidCommandException;
 import com.wpn.kanban.exceptions.PartialCommandException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,22 +20,15 @@ public class CommandParser {
         if(input == null || input.isBlank()) {
             return;
         }
-        String[] inputArray = input.split("\\s+");
-        for(int idx=0; idx<inputArray.length; ++idx) {
-            inputArray[idx] = inputArray[idx].trim();
-        }
-        if(!commandRegistry.containsKey(inputArray[0])) {
+        ParsedCommand parsedCommand = new ParsedCommand(input);
+        if(!commandRegistry.containsKey(parsedCommand.getCommandName())) {
             throw new InvalidCommandException("Invalid Command");
         }
-        Command cmd = commandRegistry.get(inputArray[0]);
-        if(!cmd.validateArgs(inputArray)) {
+        Command cmd = commandRegistry.get(parsedCommand.getCommandName());
+        if(!cmd.validateArgs(parsedCommand)) {
             return;
         }
-        try {
-            cmd.execute(appContext, inputArray);
-        } catch() {
-
-        }
+        cmd.execute(appContext, parsedCommand);
     }
 
 }

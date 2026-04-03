@@ -2,5 +2,6 @@
   "help": "com.wpn.kanban.parser.HelpCommand",
   "quit": "com.wpn.kanban.parser.QuitCommand",
   "list": "com.wpn.kanban.parser.ListCommand",
-  "create": "com.wpn.kanban.parser.CreateCommand"
+  "create": "com.wpn.kanban.parser.CreateCommand",
+  "delete": "com.wpn.kanban.parser.DeleteCommand"
 }
