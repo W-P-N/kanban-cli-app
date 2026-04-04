@@ -4,8 +4,6 @@ import java.util.*;
 
 public class InputTokenizer {
     private List<String> tokenizedInputArray;
-    private List<String> positionalArgs;
-    private Map<String,String> namedArgs;
 
     public InputTokenizer(String input) {
         String[] inputArray = input.split("\\s+");

@@ -6,16 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class AppState {
-    private boolean running = true;
-    public void stop() {
-        this.running = false;
-    }
+public final class AppState {
     private final List<Board> boardList = new ArrayList<>();
     private final AtomicInteger boardIdCounter = new AtomicInteger(1000);
-    public boolean isRunning() {
-        return running;
-    }
     public boolean addBoard(Board board) {
         for(Board listBoard: boardList) {
             if(listBoard.equals(board)) {

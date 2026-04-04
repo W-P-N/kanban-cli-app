@@ -1,7 +1,6 @@
 package com.wpn.kanban.core;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class Board {
     private int boardId;

@@ -14,7 +14,7 @@ public class QuitCommand implements Command {
     }
 
     public void execute(AppContext appContext, ParsedCommand parsedCommand) {
-        appContext.getAppState().stop();
+        appContext.stop();
         return;
     }
 }

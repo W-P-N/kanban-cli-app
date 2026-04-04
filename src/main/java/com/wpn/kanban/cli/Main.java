@@ -8,7 +8,7 @@ import com.wpn.kanban.parser.CommandParser;
 import java.util.Map;
 import java.util.Scanner;
 
-public class main {
+public class Main {
     public static void main(String[] args) {
         AppContext appContext = new AppContext();
         AppState appState = appContext.getAppState();
@@ -19,16 +19,16 @@ public class main {
             Map<String, Command> commands = CommandLoader.loadCommands("src/main/java/com/wpn/kanban/parser/commands.json");
             cmdParser = new CommandParser(commands);
         } catch(Exception e) {
-            appState.stop();
+            appContext.stop();
             System.out.println("Unable to load commands: " + e);
         }
 
         if(cmdParser == null){
-            appState.stop();
+            appContext.stop();
         }
 
         displayWelcome();
-        while(appState.isRunning()) {
+        while(appContext.isRunning()) {
             System.out.print("> ");
             String input = scn.nextLine();
             try {

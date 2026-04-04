@@ -6,6 +6,8 @@ import com.wpn.kanban.core.Board;
 import com.wpn.kanban.parser.Command;
 import com.wpn.kanban.parser.ParsedCommand;
 
+import java.util.List;
+
 public class CreateCommand implements Command {
     public String getName() {
         return "create";
@@ -29,9 +31,16 @@ public class CreateCommand implements Command {
 
     @Override
     public boolean validateArgs(ParsedCommand parsedCommand) {
-        if(parsedCommand.getPositionalArgs().size() != 1) {
+        List<String> commandArray = parsedCommand.getPositionalArgs();
+        if(commandArray.size() != 1) {
             System.out.println("Usage: create <boardName>");
             return false;
-        } else return parsedCommand.getPositionalArgs().getFirst().matches("^[A-Z]{2,5}[-_][a-zA-Z0-9]+[a-zA-Z0-9\\\\s]*$");
+        }
+        String boardNamePattern = "^[A-Z]{2,5}[-_][a-zA-Z0-9]+[a-zA-Z0-9\\\\s]*$";
+        if (!commandArray.getFirst().matches(boardNamePattern)) {
+            System.out.println("Invalid board name. Please refer help.");
+            return false;
+        };
+        return true;
     }
 }

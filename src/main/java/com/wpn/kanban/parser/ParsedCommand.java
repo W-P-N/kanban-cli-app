@@ -22,7 +22,7 @@ public class ParsedCommand {
                 args[0] = args[0].substring(2);
                 this.namedArgs.put(args[0], args[1]);
             } else {
-                positionalArgs.add(currString);
+                this.positionalArgs.add(currString);
             }
         }
     }
