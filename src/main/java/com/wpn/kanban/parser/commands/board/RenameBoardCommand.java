@@ -5,38 +5,39 @@ import com.wpn.kanban.cli.AppState;
 import com.wpn.kanban.parser.Command;
 import com.wpn.kanban.parser.ParsedCommand;
 
-public class DeleteCommand implements Command {
+public class RenameBoardCommand implements Command {
 
     @Override
     public String getName() {
-        return "delete";
+        return "rename";
     }
 
     @Override
     public String getDescription() {
-        return "Deletes the board based on board ID. Usage: delete board <boardId>";
+        return "Renames the command. Usage: rename boardId";
     }
 
     @Override
     public void execute(AppContext appContext, ParsedCommand parsedCommand) {
         AppState appState = appContext.getAppState();
-        int boardId = Integer.parseInt(parsedCommand.getPositionalArgs().get(1));
-        if(!appState.deleteBoard(boardId)) {
-            System.out.println("Unable to delete board " + boardId);
+        int boardId = Integer.parseInt(parsedCommand.getPositionalArgs().getFirst());
+        String boardName = parsedCommand.getPositionalArgs().get(1);
+        if(!appState.renameBoard(boardId, boardName)) {
+            System.out.println("Unable to rename board " + boardId);
             return;
         }
-        System.out.println("Board " + boardId + " deleted successfully");
+        System.out.println("Board " + boardId + " renamed successfully");
     }
 
     @Override
     public boolean validateArgs(ParsedCommand parsedCommand) {
         if(parsedCommand.getPositionalArgs().size() < 2) {
-            System.out.println("Usage: delete <boardId>");
+            System.out.println("Usage: rename <boardId> <newBoardName>");
             return false;
         }
         boolean isBoardId = false;
         try{
-            Integer.parseInt(parsedCommand.getPositionalArgs().get(1));
+            Integer.parseInt(parsedCommand.getPositionalArgs().getFirst());
             isBoardId = true;
         } catch(Exception e) {
             System.out.println("Invalid board ID");

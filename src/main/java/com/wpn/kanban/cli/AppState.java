@@ -32,4 +32,15 @@ public final class AppState {
         isBoardRemoved = boardList.removeIf(board -> board.getBoardId() == boardId);
         return isBoardRemoved;
     };
+    public boolean renameBoard(int boardId, String boardName) {
+        boolean containsBoard = false;
+        for(Board board: boardList) {
+            if (board.getBoardId() == boardId) {
+                containsBoard = true;
+                board.setBoardName(boardName);
+                break;
+            }
+        }
+        return containsBoard;
+    }
 }

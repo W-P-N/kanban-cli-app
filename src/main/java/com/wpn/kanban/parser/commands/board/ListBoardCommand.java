@@ -8,7 +8,7 @@ import com.wpn.kanban.parser.ParsedCommand;
 
 import java.util.List;
 
-public class ListCommand implements Command {
+public class ListBoardCommand implements Command {
     public String getName() {
         return "list";
     }
