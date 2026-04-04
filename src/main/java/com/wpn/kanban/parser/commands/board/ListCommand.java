@@ -1,8 +1,10 @@
-package com.wpn.kanban.parser;
+package com.wpn.kanban.parser.commands.board;
 
 import com.wpn.kanban.cli.AppContext;
 import com.wpn.kanban.cli.AppState;
 import com.wpn.kanban.core.Board;
+import com.wpn.kanban.parser.Command;
+import com.wpn.kanban.parser.ParsedCommand;
 
 import java.util.List;
 

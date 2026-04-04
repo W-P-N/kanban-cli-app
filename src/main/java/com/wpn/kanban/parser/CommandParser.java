@@ -20,7 +20,8 @@ public class CommandParser {
         if(input == null || input.isBlank()) {
             return;
         }
-        ParsedCommand parsedCommand = new ParsedCommand(input);
+        InputTokenizer inputTokenizer = new InputTokenizer(input);
+        ParsedCommand parsedCommand = new ParsedCommand(inputTokenizer.getTokenizedInputArray());
         if(!commandRegistry.containsKey(parsedCommand.getCommandName())) {
             throw new InvalidCommandException("Invalid Command");
         }

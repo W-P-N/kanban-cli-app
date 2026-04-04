@@ -1,6 +1,7 @@
 package com.wpn.kanban.parser;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,15 +10,21 @@ public class ParsedCommand {
     private List<String> positionalArgs;
     private Map<String, String> namedArgs;
 
-    public ParsedCommand(String input) {
-        String[] inputArray = input.split("\\s+");
-        positionalArgs = new ArrayList<>();
-        for (String s : inputArray) {
-            if (!s.isBlank()) {
-                positionalArgs.add(s.trim());
+    public ParsedCommand(List<String> tokenizedInputArray) {
+        this.commandName = tokenizedInputArray.getFirst();
+        this.positionalArgs = new ArrayList<>();
+        this.namedArgs = new HashMap<>();
+
+        for(int idx=1; idx<tokenizedInputArray.size(); ++idx) {
+            String currString = tokenizedInputArray.get(idx);
+            if(currString.startsWith("--")) {
+                String[] args = currString.split("=");
+                args[0] = args[0].substring(2);
+                this.namedArgs.put(args[0], args[1]);
+            } else {
+                positionalArgs.add(currString);
             }
         }
-        this.commandName = positionalArgs.getFirst();
     }
 
     public String getCommandName() {

@@ -1,8 +1,10 @@
-package com.wpn.kanban.parser;
+package com.wpn.kanban.parser.commands.board;
 
 import com.wpn.kanban.cli.AppContext;
 import com.wpn.kanban.cli.AppState;
 import com.wpn.kanban.core.Board;
+import com.wpn.kanban.parser.Command;
+import com.wpn.kanban.parser.ParsedCommand;
 
 public class CreateCommand implements Command {
     public String getName() {
@@ -16,7 +18,8 @@ public class CreateCommand implements Command {
     public void execute(AppContext appContext, ParsedCommand parsedCommand) {
         AppState appState = appContext.getAppState();
         int boardId = appState.getBoardIdFromCounter();
-        String boardName = parsedCommand.getPositionalArgs().get(1);
+        // First element is boardName
+        String boardName = parsedCommand.getPositionalArgs().getFirst();
         Board newBoard = new Board(boardId, boardName);
         boolean boardAdded = appState.addBoard(newBoard);
         if(!boardAdded) {
@@ -26,10 +29,9 @@ public class CreateCommand implements Command {
 
     @Override
     public boolean validateArgs(ParsedCommand parsedCommand) {
-        if(parsedCommand.getPositionalArgs().size() < 2) {
+        if(parsedCommand.getPositionalArgs().size() != 1) {
             System.out.println("Usage: create <boardName>");
             return false;
-        }
-        return true;
+        } else return parsedCommand.getPositionalArgs().getFirst().matches("^[A-Z]{2,5}[-_][a-zA-Z0-9]+[a-zA-Z0-9\\\\s]*$");
     }
 }

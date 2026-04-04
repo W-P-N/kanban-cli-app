@@ -1,7 +1,7 @@
 {
-  "help": "com.wpn.kanban.parser.HelpCommand",
-  "quit": "com.wpn.kanban.parser.QuitCommand",
-  "list": "com.wpn.kanban.parser.ListCommand",
-  "create": "com.wpn.kanban.parser.CreateCommand",
-  "delete": "com.wpn.kanban.parser.DeleteCommand"
+  "help": "com.wpn.kanban.parser.commands.util.HelpCommand",
+  "quit": "com.wpn.kanban.parser.commands.util.QuitCommand",
+  "list": "com.wpn.kanban.parser.commands.board.ListCommand",
+  "create": "com.wpn.kanban.parser.commands.board.CreateCommand",
+  "delete": "com.wpn.kanban.parser.commands.board.DeleteCommand"
 }
