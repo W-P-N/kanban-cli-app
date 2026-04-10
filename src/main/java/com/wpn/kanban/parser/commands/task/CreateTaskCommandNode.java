@@ -2,9 +2,10 @@ package com.wpn.kanban.parser.commands.task;
 
 import com.wpn.kanban.cli.AppContext;
 import com.wpn.kanban.parser.Command;
+import com.wpn.kanban.parser.CommandNode;
 import com.wpn.kanban.parser.ParsedCommand;
 
-public class CreateTaskCommand implements Command {
+public class CreateTaskCommandNode implements Command {
     @Override
     public String getName() {
         return "create";
@@ -15,12 +16,10 @@ public class CreateTaskCommand implements Command {
         return "Creates a new task. Usage: create --title=<taskName> --description=\"<taskDescription>\"";
     }
 
-    @Override
     public void execute(AppContext appContext, ParsedCommand parsedCommand) {
 
     }
 
-    @Override
     public boolean validateArgs(ParsedCommand parsedCommand) {
         return Command.super.validateArgs(parsedCommand);
     }

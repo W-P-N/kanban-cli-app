@@ -2,10 +2,7 @@ package com.wpn.kanban.parser;
 
 import com.wpn.kanban.cli.AppContext;
 
-import java.util.Map;
-
-public interface Command {
-    String getName();
+public interface Command extends CommandNode {
     String getDescription();
     void execute(AppContext appContext, ParsedCommand parsedCommand);
     default boolean validateArgs(ParsedCommand parsedCommand) {

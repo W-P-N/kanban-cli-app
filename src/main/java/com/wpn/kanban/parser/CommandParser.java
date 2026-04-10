@@ -2,17 +2,13 @@ package com.wpn.kanban.parser;
 
 import com.wpn.kanban.cli.AppContext;
 import com.wpn.kanban.exceptions.InvalidCommandException;
-import com.wpn.kanban.exceptions.PartialCommandException;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Map;
 
 public class CommandParser {
-    private final Map<String,Command> commandRegistry;
+    private final Map<String, CommandNode> commandRegistry;
 
-    public CommandParser(Map<String,Command> commands) {
+    public CommandParser(Map<String, CommandNode> commands) {
         this.commandRegistry = commands;
     }
 
@@ -22,10 +18,8 @@ public class CommandParser {
         }
         InputTokenizer inputTokenizer = new InputTokenizer(input);
         ParsedCommand parsedCommand = new ParsedCommand(inputTokenizer.getTokenizedInputArray());
-        if(!commandRegistry.containsKey(parsedCommand.getCommandName())) {
-            throw new InvalidCommandException("Invalid Command");
-        }
-        Command cmd = commandRegistry.get(parsedCommand.getCommandName());
+        CommandGroup cmdGroup = new CommandGroup(parsedCommand.getCommandName(), null);
+        Command cmd = (Command) cmdGroup.getCommand(parsedCommand.getPositionalArgs());
         if(!cmd.validateArgs(parsedCommand)) {
             return;
         }

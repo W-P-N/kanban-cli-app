@@ -4,11 +4,12 @@ import com.wpn.kanban.cli.AppContext;
 import com.wpn.kanban.cli.AppState;
 import com.wpn.kanban.core.Board;
 import com.wpn.kanban.parser.Command;
+import com.wpn.kanban.parser.CommandNode;
 import com.wpn.kanban.parser.ParsedCommand;
 
 import java.util.List;
 
-public class ListBoardCommand implements Command {
+public class ListBoardCommandNode implements Command {
     public String getName() {
         return "list";
     }

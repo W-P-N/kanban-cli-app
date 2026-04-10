@@ -1,7 +1,7 @@
 package com.wpn.kanban.cli;
 
 import com.wpn.kanban.exceptions.InvalidCommandException;
-import com.wpn.kanban.parser.Command;
+import com.wpn.kanban.parser.CommandNode;
 import com.wpn.kanban.parser.CommandLoader;
 import com.wpn.kanban.parser.CommandParser;
 
@@ -16,7 +16,7 @@ public class Main {
         Scanner scn = new Scanner(System.in);
         CommandParser cmdParser = null;
         try {
-            Map<String, Command> commands = CommandLoader.loadCommands("src/main/java/com/wpn/kanban/parser/commands.json");
+            Map<String, CommandNode> commands = CommandLoader.loadCommands("src/main/java/com/wpn/kanban/parser/commands.json");
             cmdParser = new CommandParser(commands);
         } catch(Exception e) {
             appContext.stop();

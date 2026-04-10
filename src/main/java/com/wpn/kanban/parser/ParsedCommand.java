@@ -1,18 +1,15 @@
 package com.wpn.kanban.parser;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ParsedCommand {
     private String commandName;
-    private List<String> positionalArgs;
+    private Deque<String> positionalArgs;
     private Map<String, String> namedArgs;
 
     public ParsedCommand(List<String> tokenizedInputArray) {
         this.commandName = tokenizedInputArray.getFirst();
-        this.positionalArgs = new ArrayList<>();
+        this.positionalArgs = new ArrayDeque<>();
         this.namedArgs = new HashMap<>();
 
         for(int idx=1; idx<tokenizedInputArray.size(); ++idx) {
@@ -22,7 +19,7 @@ public class ParsedCommand {
                 args[0] = args[0].substring(2);
                 this.namedArgs.put(args[0], args[1]);
             } else {
-                this.positionalArgs.add(currString);
+                this.positionalArgs.offer(currString);
             }
         }
     }
@@ -31,7 +28,7 @@ public class ParsedCommand {
         return commandName;
     }
 
-    public List<String> getPositionalArgs() {
+    public Deque<String> getPositionalArgs() {
         return positionalArgs;
     }
 

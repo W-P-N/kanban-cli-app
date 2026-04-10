@@ -4,11 +4,13 @@ import com.wpn.kanban.cli.AppContext;
 import com.wpn.kanban.cli.AppState;
 import com.wpn.kanban.core.Board;
 import com.wpn.kanban.parser.Command;
+import com.wpn.kanban.parser.CommandNode;
 import com.wpn.kanban.parser.ParsedCommand;
 
+import java.util.Deque;
 import java.util.List;
 
-public class CreateBoardCommand implements Command {
+public class CreateBoardCommandNode implements Command {
     public String getName() {
         return "create";
     }
@@ -31,7 +33,7 @@ public class CreateBoardCommand implements Command {
 
     @Override
     public boolean validateArgs(ParsedCommand parsedCommand) {
-        List<String> commandArray = parsedCommand.getPositionalArgs();
+        Deque<String> commandArray = parsedCommand.getPositionalArgs();
         if(commandArray.size() != 1) {
             System.out.println("Usage: create <boardName>");
             return false;
