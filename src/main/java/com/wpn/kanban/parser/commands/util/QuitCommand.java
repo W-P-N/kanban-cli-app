@@ -2,10 +2,9 @@ package com.wpn.kanban.parser.commands.util;
 
 import com.wpn.kanban.cli.AppContext;
 import com.wpn.kanban.parser.Command;
-import com.wpn.kanban.parser.CommandNode;
 import com.wpn.kanban.parser.ParsedCommand;
 
-public class QuitCommandNode implements Command {
+public class QuitCommand implements Command {
     public String getName() {
         return "quit";
     }

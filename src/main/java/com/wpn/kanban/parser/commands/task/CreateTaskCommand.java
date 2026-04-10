@@ -2,10 +2,9 @@ package com.wpn.kanban.parser.commands.task;
 
 import com.wpn.kanban.cli.AppContext;
 import com.wpn.kanban.parser.Command;
-import com.wpn.kanban.parser.CommandNode;
 import com.wpn.kanban.parser.ParsedCommand;
 
-public class CreateTaskCommandNode implements Command {
+public class CreateTaskCommand implements Command {
     @Override
     public String getName() {
         return "create";

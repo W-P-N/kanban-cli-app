@@ -3,12 +3,13 @@ package com.wpn.kanban.parser;
 import com.wpn.kanban.cli.AppContext;
 import com.wpn.kanban.exceptions.InvalidCommandException;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class CommandParser {
-    private final Map<String, CommandNode> commandRegistry;
+    private Map<String, Object> commandRegistry;
 
-    public CommandParser(Map<String, CommandNode> commands) {
+    public CommandParser(Map<String, Object> commands) {
         this.commandRegistry = commands;
     }
 

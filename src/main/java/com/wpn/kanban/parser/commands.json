@@ -2,9 +2,9 @@
   "help": "com.wpn.kanban.parser.commands.util.HelpCommand",
   "quit": "com.wpn.kanban.parser.commands.util.QuitCommand",
   "board": {
-    "list": "com.wpn.kanban.parser.commands.board.ListCommand",
-    "create": "com.wpn.kanban.parser.commands.board.CreateCommand",
-    "delete": "com.wpn.kanban.parser.commands.board.DeleteCommand",
-    "rename": "com.wpn.kanban.parser.commands.board.RenameCommand"
+    "list": "com.wpn.kanban.parser.commands.board.ListBoardCommand",
+    "create": "com.wpn.kanban.parser.commands.board.CreateBoardCommand",
+    "delete": "com.wpn.kanban.parser.commands.board.DeleteBoardCommand",
+    "rename": "com.wpn.kanban.parser.commands.board.RenameBoardCommand"
   }
 }

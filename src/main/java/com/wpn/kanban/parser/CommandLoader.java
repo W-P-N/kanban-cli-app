@@ -12,9 +12,9 @@ public final class CommandLoader {
     private CommandLoader() {};
     private static Map<String,Object> registry;
 
-    public static Map<String, CommandNode> loadCommands(String configPath) throws Exception {
+    public static Map<String, Object> loadCommands(String configPath) throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
-        Map<String, CommandNode> registry = new HashMap<>();
+        registry = new HashMap<>();
         String json = new String(Files.readAllBytes(Paths.get(configPath)));
         Map<String, Object> temp;
         temp = objectMapper.readValue(json, new TypeReference<>() {});

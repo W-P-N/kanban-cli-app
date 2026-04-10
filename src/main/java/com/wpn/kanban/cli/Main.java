@@ -16,7 +16,7 @@ public class Main {
         Scanner scn = new Scanner(System.in);
         CommandParser cmdParser = null;
         try {
-            Map<String, CommandNode> commands = CommandLoader.loadCommands("src/main/java/com/wpn/kanban/parser/commands.json");
+            Map<String, Object> commands = CommandLoader.loadCommands("src/main/java/com/wpn/kanban/parser/commands.json");
             cmdParser = new CommandParser(commands);
         } catch(Exception e) {
             appContext.stop();
