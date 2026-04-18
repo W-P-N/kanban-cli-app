@@ -1,8 +1,5 @@
 package com.wpn.kanban.parser;
 
-import com.wpn.kanban.cli.AppContext;
-
-import java.util.Deque;
 import java.util.Map;
 
 public class CommandGroup implements CommandNode {
@@ -14,8 +11,8 @@ public class CommandGroup implements CommandNode {
         this.children = children;
     }
 
-    public CommandNode getCommand(Deque<String> positionalArgs) {
-        return null;
+    public Map<String, CommandNode> getChildren() {
+        return this.children;
     }
 
     @Override
