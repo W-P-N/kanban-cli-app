@@ -12,9 +12,8 @@ public class ParsedCommand {
         this.positionalArgs = new ArrayDeque<>();
         this.namedArgs = new HashMap<>();
 
-        for(int idx=1; idx<tokenizedInputArray.size(); ++idx) {
-            String currString = tokenizedInputArray.get(idx);
-            if(currString.startsWith("--")) {
+        for (String currString : tokenizedInputArray) {
+            if (currString.startsWith("--")) {
                 String[] args = currString.split("=");
                 args[0] = args[0].substring(2);
                 this.namedArgs.put(args[0], args[1]);

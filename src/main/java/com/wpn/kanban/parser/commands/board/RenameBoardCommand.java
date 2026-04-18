@@ -20,7 +20,11 @@ public class RenameBoardCommand implements Command {
     @Override
     public void execute(AppContext appContext, ParsedCommand parsedCommand) {
         AppState appState = appContext.getAppState();
-        int boardId = Integer.parseInt(parsedCommand.getPositionalArgs().getFirst());
+        String boardIdStr = parsedCommand.getPositionalArgs().poll();
+        if(boardIdStr == null) {
+            return;
+        }
+        int boardId = Integer.parseInt(boardIdStr);
         String boardName = parsedCommand.getPositionalArgs().poll();
         if(!appState.renameBoard(boardId, boardName)) {
             System.out.println("Unable to rename board " + boardId);
