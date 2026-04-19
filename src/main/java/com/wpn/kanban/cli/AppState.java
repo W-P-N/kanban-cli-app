@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public final class AppState {
+    private Board activeBoard;
     private final List<Board> boardList = new ArrayList<>();
     private final AtomicInteger boardIdCounter = new AtomicInteger(1000);
     public boolean addBoard(Board board) {
@@ -42,5 +43,29 @@ public final class AppState {
             }
         }
         return containsBoard;
+    }
+    private void setActiveBoard(Board board) {
+        this.activeBoard = board;
+    }
+    public Board getActiveBoard() {
+        return this.activeBoard;
+    }
+    public boolean setBoardActive(int boardId) {
+        boolean containsBoard = false;
+        for(Board board: boardList) {
+            if (board.getBoardId() == boardId) {
+                containsBoard = true;
+                setActiveBoard(board);
+                break;
+            }
+        }
+        return containsBoard;
+    }
+    public boolean closeActiveBoard() {
+        if(this.activeBoard == null) {
+            return false;
+        }
+        this.activeBoard = null;
+        return true;
     }
 }

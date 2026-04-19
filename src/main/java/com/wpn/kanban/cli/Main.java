@@ -1,5 +1,6 @@
 package com.wpn.kanban.cli;
 
+import com.wpn.kanban.core.Board;
 import com.wpn.kanban.exceptions.InvalidCommandException;
 import com.wpn.kanban.parser.CommandNode;
 import com.wpn.kanban.parser.CommandLoader;
@@ -29,7 +30,8 @@ public class Main {
 
         displayWelcome();
         while(appContext.isRunning()) {
-            System.out.print("> ");
+            Board activeBoard = appState.getActiveBoard();
+            System.out.print((activeBoard == null ? "" : "(" + activeBoard.getBoardId() + ") " ) + "> ");
             String input = scn.nextLine();
             try {
                 cmdParser.parse(input, appContext);

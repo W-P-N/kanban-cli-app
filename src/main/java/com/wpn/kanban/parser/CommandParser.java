@@ -33,7 +33,7 @@ public class CommandParser {
         cmd.execute(appContext, parsedCommand);
     }
 
-    public Command getCommand(Object cmdNode, Deque<String> positionalArgs) {
+    private Command getCommand(Object cmdNode, Deque<String> positionalArgs) {
         if(cmdNode == null) {
             return null;
         }
