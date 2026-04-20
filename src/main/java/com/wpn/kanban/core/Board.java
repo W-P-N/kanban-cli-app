@@ -5,7 +5,7 @@ import java.util.*;
 public class Board {
     private int boardId;
     private String boardName;
-    private Map<Task, Status> taskMap;
+    private Map<Integer, Task> taskMap;
 
     public Board(int boardId, String boardName) {
         this.boardId = boardId;
@@ -23,17 +23,6 @@ public class Board {
 
     public void setBoardName(String boardName) {
         this.boardName = boardName;
-    }
-
-    public List<Task> getTaskListByStatus(Status reqStatus) {
-        List<Task> taskList = new ArrayList<>(10);
-        for(Map.Entry<Task, Status> entry: taskMap.entrySet()) {
-            Status st = entry.getValue();
-            if(st.equals(reqStatus)) {
-                taskList.add(entry.getKey());
-            }
-        }
-        return taskList;
     }
 
     public boolean equals(Board board) {
