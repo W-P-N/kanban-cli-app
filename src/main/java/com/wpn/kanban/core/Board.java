@@ -1,11 +1,13 @@
 package com.wpn.kanban.core;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Board {
     private int boardId;
     private String boardName;
-    private Map<Integer, Task> taskMap;
+    private Map<String, Task> taskMap;
+    private AtomicInteger taskIdCounter = new AtomicInteger(1000);
 
     public Board(int boardId, String boardName) {
         this.boardId = boardId;
@@ -25,7 +27,23 @@ public class Board {
         this.boardName = boardName;
     }
 
+    public void addTask(String taskName, String taskDescription) {
+        String taskId = "" + taskIdCounter.incrementAndGet();
+        Task task = new Task(taskId, taskName);
+        if(taskDescription != null) {
+            task.setDescription(taskDescription);
+        }
+        taskMap.put(taskId, task);
+    }
+
     public boolean equals(Board board) {
         return (this.getBoardId() != board.getBoardId()) && (this.getBoardName().equals(board.getBoardName()));
     }
+
+    public void listTask() {
+        for(Map.Entry<String, Task> entry: taskMap.entrySet()) {
+            System.out.println(entry.getKey() + " - " + entry.getValue().getTitle());
+        }
+    }
+
 }

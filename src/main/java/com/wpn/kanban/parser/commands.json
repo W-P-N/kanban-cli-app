@@ -8,5 +8,9 @@
     "rename": "com.wpn.kanban.parser.commands.board.RenameBoardCommand",
     "open": "com.wpn.kanban.parser.commands.board.OpenBoardCommand",
     "close": "com.wpn.kanban.parser.commands.board.CloseBoardCommand"
+  },
+  "task": {
+    "add": "com.wpn.kanban.parser.commands.task.AddTaskCommand",
+    "list": "com.wpn.kanban.parser.commands.task.ListTaskCommand"
   }
 }
