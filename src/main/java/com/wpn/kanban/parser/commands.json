@@ -11,6 +11,7 @@
   },
   "task": {
     "add": "com.wpn.kanban.parser.commands.task.AddTaskCommand",
-    "list": "com.wpn.kanban.parser.commands.task.ListTaskCommand"
+    "list": "com.wpn.kanban.parser.commands.task.ListTaskCommand",
+    "details": "com.wpn.kanban.parser.commands.task.DetailsTaskCommand"
   }
 }

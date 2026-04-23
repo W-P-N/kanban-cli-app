@@ -7,16 +7,18 @@ public class ParsedCommand {
     private Deque<String> positionalArgs;
     private Map<String, String> namedArgs;
 
-    public ParsedCommand(List<String> tokenizedInputArray) {
+    public ParsedCommand(Deque<String> tokenizedInputArray) {
         this.commandName = tokenizedInputArray.getFirst();
         this.positionalArgs = new ArrayDeque<>();
         this.namedArgs = new HashMap<>();
 
-        for (String currString : tokenizedInputArray) {
+        while(!tokenizedInputArray.isEmpty()) {
+            String currString = tokenizedInputArray.poll();
             if (currString.startsWith("--")) {
-                String[] args = currString.split("=");
-                args[0] = args[0].substring(2);
-                this.namedArgs.put(args[0], args[1]);
+                String namedArgValue = tokenizedInputArray.poll();
+                if(namedArgValue != null) {
+                    this.namedArgs.put(currString.replaceAll("(--)|(=)",""),namedArgValue.replaceAll("\"", ""));
+                }
             } else {
                 this.positionalArgs.offer(currString);
             }

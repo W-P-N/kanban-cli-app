@@ -1,6 +1,7 @@
 package com.wpn.kanban.cli;
 
 import com.wpn.kanban.core.Board;
+import com.wpn.kanban.core.Task;
 
 import java.util.ArrayList;
 import java.util.List;

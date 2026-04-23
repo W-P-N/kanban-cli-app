@@ -23,12 +23,13 @@ public class AddTaskCommand implements Command {
 
     public void execute(AppContext appContext, ParsedCommand parsedCommand) {
         Deque<String> posArgs = parsedCommand.getPositionalArgs();
+        Map<String, String> namedArgs = parsedCommand.getNamedArgs();
         AppState appState = appContext.getAppState();
         Board activeBoard = appState.getActiveBoard();
         if(activeBoard == null){
             System.out.println("No Active board found");
         } else {
-            activeBoard.addTask(posArgs.poll(), null);
+            activeBoard.addTask(posArgs.poll(), namedArgs.get("desc"));
         }
 //        Map<String, String> nameArgs = parsedCommand.getNamedArgs();
 //        for(Map.Entry<String,String> entry: nameArgs.entrySet()) {

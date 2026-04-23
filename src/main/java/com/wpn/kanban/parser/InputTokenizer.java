@@ -1,23 +1,23 @@
 package com.wpn.kanban.parser;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class InputTokenizer {
-    private List<String> tokenizedInputArray;
+    private Deque<String> tokenizedInputArray;
 
     public InputTokenizer(String input) {
-        String[] inputArray = input.split("\\s+");
-        tokenizedInputArray = new ArrayList<>();
-        for (String s : inputArray) {
-            String newS = s.trim();
-            if (!newS.isBlank()) {
-                tokenizedInputArray.add(s.trim());
-            }
+        Pattern pattern = Pattern.compile("[^\\s\"']+|\"([^\"]*)\"|'([^']*)'");
+        Matcher matcher = pattern.matcher(input);
+        tokenizedInputArray = new ArrayDeque<>();
+        while(matcher.find()) {
+            tokenizedInputArray.offer(matcher.group());
         }
     }
 
-    public List<String> getTokenizedInputArray() {
+    public Deque<String> getTokenizedInputArray() {
         return tokenizedInputArray;
     }
-    
+
 }

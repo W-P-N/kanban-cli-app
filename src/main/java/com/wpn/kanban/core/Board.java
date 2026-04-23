@@ -36,6 +36,15 @@ public class Board {
         taskMap.put(taskId, task);
     }
 
+    public Task findTask(String taskId) {
+        for(Map.Entry<String, Task> entry: taskMap.entrySet()) {
+            if(entry.getKey().equals(taskId)) {
+                return entry.getValue();
+            }
+        }
+        return null;
+    }
+
     public boolean equals(Board board) {
         return (this.getBoardId() != board.getBoardId()) && (this.getBoardName().equals(board.getBoardName()));
     }
