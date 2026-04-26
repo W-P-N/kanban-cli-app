@@ -31,9 +31,5 @@ public class AddTaskCommand implements Command {
         } else {
             activeBoard.addTask(posArgs.poll(), namedArgs.get("desc"));
         }
-//        Map<String, String> nameArgs = parsedCommand.getNamedArgs();
-//        for(Map.Entry<String,String> entry: nameArgs.entrySet()) {
-//            System.out.println(entry.getKey() + ": " + entry.getValue());
-//        }
     }
 }

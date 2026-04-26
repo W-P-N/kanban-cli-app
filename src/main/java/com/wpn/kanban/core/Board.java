@@ -93,4 +93,19 @@ public class Board {
         }
     }
 
+    public boolean deleteTask(String taskId) {
+        Task removedTask = taskMap.remove(taskId);
+        return removedTask != null;
+    }
+
+    public boolean renameTask(String taskId, String newName) {
+        Task foundTask = findTask(taskId);
+        if(foundTask == null) {
+            return false;
+        }
+        foundTask.setTitle(newName);
+        return true;
+    }
+
+
 }
