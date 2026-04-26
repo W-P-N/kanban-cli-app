@@ -55,4 +55,42 @@ public class Board {
         }
     }
 
+    public void viewBoard() {
+        List<Task> todoTasks = new ArrayList<>();
+        List<Task> doingTasks = new ArrayList<>();
+        List<Task> finishedTasks = new ArrayList<>();
+
+        for(Map.Entry<String, Task> entry: taskMap.entrySet()) {
+            Task currentTask = entry.getValue();
+            switch(currentTask.getStatus()) {
+                case Status.TODO:
+                    todoTasks.add(currentTask);
+                    break;
+                case Status.DOING:
+                    doingTasks.add(currentTask);
+                    break;
+                case Status.FINISHED:
+                    finishedTasks.add(currentTask);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        System.out.println("TODO: ");
+        for(Task task: todoTasks) {
+            System.out.print(task.getId() + ": " + task.getTitle());
+        }
+        System.out.println();
+        System.out.println("DOING: ");
+        for(Task task: doingTasks) {
+            System.out.print(task.getId() + ": " + task.getTitle());
+        }
+        System.out.println();
+        System.out.println("FINISHED: ");
+        for(Task task: finishedTasks) {
+            System.out.print(task.getId() + ": " + task.getTitle());
+        }
+    }
+
 }

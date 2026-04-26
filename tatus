@@ -1,0 +1,113 @@
+[33mcommit af7362f32f3c73565d464130a55c5707aa765e4e[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: Parth <parthwani22@gmail.com>
+Date:   Thu Apr 23 22:19:29 2026 +0530
+
+    Add and list task with view task details done
+
+[33mcommit 7bd0df372dd9f1764eda53bc75d63033e50d0e4a[m
+Author: Parth <parthwani22@gmail.com>
+Date:   Mon Apr 20 21:55:32 2026 +0530
+
+    Functionality: Add task and List task command
+
+[33mcommit 81e48e89587121e199b4594f7f1c1d9bad0d6e90[m
+Author: Parth <parthwani22@gmail.com>
+Date:   Mon Apr 20 21:25:58 2026 +0530
+
+    Update Board to keep map of taskId and Task object.
+
+[33mcommit a56c8320432bb73a8cadd7a2d502fe5d4bd9055b[m
+Author: Parth <parthwani22@gmail.com>
+Date:   Sun Apr 19 10:05:00 2026 +0530
+
+    Open and Close board functionality implemented
+
+[33mcommit bcfc0b8fb1cba89a073d6785751d3b8a527cce4f[m
+Author: Parth <parthwani22@gmail.com>
+Date:   Sat Apr 18 09:55:52 2026 +0530
+
+    Fix: Rename board bug fixed.
+
+[33mcommit 61a8aa3cd0c3f352cf3a4f78b72ae6dc8674ee9c[m
+Author: Parth <parthwani22@gmail.com>
+Date:   Sat Apr 18 09:45:52 2026 +0530
+
+    Complete flow of parsing
+
+[33mcommit 3b12f6da9814b9bc4f83f4ac61fb6b3cb01a52f4[m
+Author: Parth <parthwani22@gmail.com>
+Date:   Fri Apr 10 10:09:43 2026 +0530
+
+    Update command paths and json
+
+[33mcommit c5153a26a2c457a4fcd2e8e018494108201f36d5[m
+Author: Parth <parthwani22@gmail.com>
+Date:   Fri Apr 10 10:02:18 2026 +0530
+
+    Fixed CommandLoading mechanism. Now will work on commandParsing
+
+[33mcommit 42fba0eb46d6501f003717f502db5f3446443801[m
+Author: Parth <parthwani22@gmail.com>
+Date:   Sat Apr 4 21:50:14 2026 +0530
+
+    Rename command
+
+[33mcommit 4e3bcf4526b4acaddf9dd1cf36185bd61db587da[m
+Author: Parth <parthwani22@gmail.com>
+Date:   Sat Apr 4 20:42:59 2026 +0530
+
+    Update appState and appContext: separation of concerns
+
+[33mcommit 8a07729b866340a18119a5bd7dbe1a913ee830f8[m
+Author: Parth <parthwani22@gmail.com>
+Date:   Sat Apr 4 18:47:22 2026 +0530
+
+    Fix CommandPArser and InputTokenizer. Directory separation of commands. Create Command made robust
+
+[33mcommit c5a8053b8aba565981acf63a68d7a9e06bd06b9d[m
+Author: Parth <parthwani22@gmail.com>
+Date:   Fri Apr 3 22:30:49 2026 +0530
+
+    Command Parse functionality separated.
+
+[33mcommit ee23edddaeab62b44cd32f9f6a86761ea88ead17[m
+Author: Parth <parthwani22@gmail.com>
+Date:   Tue Mar 31 21:56:54 2026 +0530
+
+    Fix: Create board addition logic. Board counter - Added counter to appState and give boardId from counter.
+
+[33mcommit 43e1d2e755fe3959549aaee10c7fa27cfdf45802[m
+Author: Parth <parthwani22@gmail.com>
+Date:   Tue Mar 31 08:10:58 2026 +0530
+
+    Update validation of command. Update board ID type from int to UUID
+
+[33mcommit 2d72ba0030198e915537a11fec094e2b7abca1e2[m
+Author: Parth <parthwani22@gmail.com>
+Date:   Mon Mar 30 22:28:30 2026 +0530
+
+    Fixes: Duplicate board names and IDs. Agrs validation.
+
+[33mcommit a528d4e65a99d9960c45b6ee7020bf56fb8bc748[m
+Author: Parth <parthwani22@gmail.com>
+Date:   Mon Mar 30 21:04:09 2026 +0530
+
+    Add banner and welcome message. In Prog: Help command execution.
+
+[33mcommit f1a9caf8167397a583e944d23d3d617d040fdb09[m
+Author: Parth <parthwani22@gmail.com>
+Date:   Sun Mar 29 18:45:34 2026 +0530
+
+    Fixes: Made CommandLoader class final and gave private constructor. Restruct logic for str cleaning for parsing input. Main - exception specified.
+
+[33mcommit 319d65e159f81832bbbfc0b9e26b3d50347ac02f[m
+Author: Parth <parthwani22@gmail.com>
+Date:   Sun Mar 29 18:34:45 2026 +0530
+
+    Added Quit command - Implemented AppContext, AppState and Config.
+
+[33mcommit 10fd3849f3f5319bc7b82f8d72bcdf0156adf345[m
+Author: Parth <parthwani22@gmail.com>
+Date:   Sun Mar 29 16:56:52 2026 +0530
+
+    First commit - Main, Parser - loads commands from json, Board, Task, Column done.

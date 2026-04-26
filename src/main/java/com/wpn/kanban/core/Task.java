@@ -21,20 +21,12 @@ public class Task {
         this.updatedAt = this.createdAt;
     }
 
-    public void doTask() throws InvalidStatusTransitionException{
-        if(this.status != Status.TODO) {
-            throw new InvalidStatusTransitionException("Can only start TODO tasks");
-        };
-        this.status = Status.DOING;
-        this.updatedAt = LocalDateTime.now();
+    public void advanceTask() {
+        this.setStatus(this.getStatus().next());
     }
 
-    public void finishTask() throws InvalidStatusTransitionException {
-        if(this.status != Status.DOING) {
-            throw new InvalidStatusTransitionException("Can only finish DOING tasks");
-        };
-        this.status = Status.FINISHED;
-        this.updatedAt= LocalDateTime.now();
+    public void revertTask() {
+        this.setStatus(this.getStatus().previous());
     }
 
     public String getId() {
