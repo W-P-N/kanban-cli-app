@@ -20,7 +20,7 @@ public class DeleteBoardCommand implements Command {
     @Override
     public void execute(AppContext appContext, ParsedCommand parsedCommand) {
         AppState appState = appContext.getAppState();
-        int boardId = Integer.parseInt(parsedCommand.getPositionalArgs().getFirst());
+        String boardId = parsedCommand.getPositionalArgs().poll();
         if(!appState.deleteBoard(boardId)) {
             System.out.println("Unable to delete board " + boardId);
             return;

@@ -19,14 +19,13 @@ public class CreateBoardCommand implements Command {
 
     public void execute(AppContext appContext, ParsedCommand parsedCommand) {
         AppState appState = appContext.getAppState();
-        int boardId = appState.getBoardIdFromCounter();
-        // First element is boardName
-        String boardName = parsedCommand.getPositionalArgs().getFirst();
-        Board newBoard = new Board(boardId, boardName);
-        boolean boardAdded = appState.addBoard(newBoard);
+        String boardName = parsedCommand.getPositionalArgs().poll();
+        boolean boardAdded = appState.addBoard(boardName);
         if(!boardAdded) {
             System.out.println("Board already exists.");
+            return;
         }
+        System.out.println("Board created successfully.");
     }
 
     @Override

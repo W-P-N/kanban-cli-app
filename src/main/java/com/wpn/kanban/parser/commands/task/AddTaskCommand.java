@@ -28,8 +28,12 @@ public class AddTaskCommand implements Command {
         Board activeBoard = appState.getActiveBoard();
         if(activeBoard == null){
             System.out.println("No Active board found");
-        } else {
-            activeBoard.addTask(posArgs.poll(), namedArgs.get("desc"));
+            return;
         }
+        if(!activeBoard.addTask(posArgs.poll(), namedArgs.get("desc"))) {
+            System.out.println("Unable to add task");
+            return;
+        }
+        System.out.println("Task added successfully");
     }
 }

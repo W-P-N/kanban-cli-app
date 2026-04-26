@@ -1,7 +1,6 @@
 package com.wpn.kanban.cli;
 
 import com.wpn.kanban.core.Board;
-import com.wpn.kanban.core.Task;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,33 +10,41 @@ public final class AppState {
     private Board activeBoard;
     private final List<Board> boardList = new ArrayList<>();
     private final AtomicInteger boardIdCounter = new AtomicInteger(1000);
-    public boolean addBoard(Board board) {
-        for(Board listBoard: boardList) {
-            if(listBoard.equals(board)) {
+
+    public boolean addBoard(String boardName) {
+        for(Board board: boardList) {
+            if(board.getBoardName().equals(boardName)) {
                 return false;
             }
         }
-        boardList.add(board);
+        String boardId = "" + boardIdCounter.incrementAndGet();
+        Board newBoard = new Board(boardId, boardName);
+        boardList.add(newBoard);
         return true;
     }
+
     public List<Board> getBoardList() {
         return new ArrayList<>(boardList);
     }
+
     public void resetBoardIdCounter() {
         boardIdCounter.set(1000);
     }
+
     public int getBoardIdFromCounter() {
         return boardIdCounter.incrementAndGet();
     }
-    public boolean deleteBoard(int boardId) {
+
+    public boolean deleteBoard(String boardId) {
         boolean isBoardRemoved = false;
-        isBoardRemoved = boardList.removeIf(board -> board.getBoardId() == boardId);
+        isBoardRemoved = boardList.removeIf(board -> board.getBoardId().equals(boardId));
         return isBoardRemoved;
-    };
-    public boolean renameBoard(int boardId, String boardName) {
+    }
+
+    public boolean renameBoard(String boardId, String boardName) {
         boolean containsBoard = false;
         for(Board board: boardList) {
-            if (board.getBoardId() == boardId) {
+            if (board.getBoardId().equals(boardId)) {
                 containsBoard = true;
                 board.setBoardName(boardName);
                 break;
@@ -48,13 +55,15 @@ public final class AppState {
     private void setActiveBoard(Board board) {
         this.activeBoard = board;
     }
+
     public Board getActiveBoard() {
         return this.activeBoard;
     }
-    public boolean setBoardActive(int boardId) {
+
+    public boolean setBoardActive(String boardId) {
         boolean containsBoard = false;
         for(Board board: boardList) {
-            if (board.getBoardId() == boardId) {
+            if (board.getBoardId().equals(boardId)) {
                 containsBoard = true;
                 setActiveBoard(board);
                 break;
@@ -62,6 +71,7 @@ public final class AppState {
         }
         return containsBoard;
     }
+
     public boolean closeActiveBoard() {
         if(this.activeBoard == null) {
             return false;

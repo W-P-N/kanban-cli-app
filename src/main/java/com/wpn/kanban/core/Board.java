@@ -4,18 +4,18 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Board {
-    private int boardId;
+    private final String boardId;
     private String boardName;
-    private Map<String, Task> taskMap;
+    private final Map<String, Task> taskMap;
     private AtomicInteger taskIdCounter = new AtomicInteger(1000);
 
-    public Board(int boardId, String boardName) {
+    public Board(String boardId, String boardName) {
         this.boardId = boardId;
         this.boardName = boardName;
         this.taskMap = new HashMap<>(10);
     }
 
-    public int getBoardId() {
+    public String getBoardId() {
         return boardId;
     }
 
@@ -27,13 +27,19 @@ public class Board {
         this.boardName = boardName;
     }
 
-    public void addTask(String taskName, String taskDescription) {
+    public boolean addTask(String taskName, String taskDescription) {
+        for(Map.Entry<String,Task> entry: taskMap.entrySet()) {
+            if(entry.getValue().getTitle().equals(taskName)) {
+                return false;
+            }
+        }
         String taskId = "" + taskIdCounter.incrementAndGet();
         Task task = new Task(taskId, taskName);
         if(taskDescription != null) {
             task.setDescription(taskDescription);
         }
         taskMap.put(taskId, task);
+        return true;
     }
 
     public Task findTask(String taskId) {
