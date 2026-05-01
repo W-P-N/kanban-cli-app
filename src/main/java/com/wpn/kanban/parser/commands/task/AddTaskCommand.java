@@ -20,7 +20,7 @@ public class AddTaskCommand implements Command {
 
     @Override
     public String getDescription() {
-        return "Add a new task to currently active board. Usage: task add <taskName> --desc=\"<taskDescription>\"";
+        return "\tAdd a new task to currently active board. Usage: task add <taskName> --desc=\"<taskDescription>\"";
     }
 
     public void execute(AppContext appContext, ParsedCommand parsedCommand) throws NoActiveBoardException, TaskAlreadyExistsException {
