@@ -1,10 +1,9 @@
 package com.wpn.kanban.parser;
 
 import com.wpn.kanban.cli.AppContext;
-import com.wpn.kanban.exceptions.InvalidCommandException;
+import com.wpn.kanban.exceptions.kanbanexceptions.InvalidCommandException;
 
 import java.util.Deque;
-import java.util.HashMap;
 import java.util.Map;
 
 public class CommandParser {
