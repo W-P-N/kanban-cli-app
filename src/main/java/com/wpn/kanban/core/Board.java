@@ -7,7 +7,7 @@ public class Board {
     private final String boardId;
     private String boardName;
     private final Map<String, Task> taskMap;
-    private AtomicInteger taskIdCounter = new AtomicInteger(1000);
+    private final AtomicInteger taskIdCounter = new AtomicInteger(1000);
 
     public Board(String boardId, String boardName) {
         this.boardId = boardId;
@@ -52,7 +52,7 @@ public class Board {
     }
 
     public boolean equals(Board board) {
-        return (this.getBoardId() != board.getBoardId()) && (this.getBoardName().equals(board.getBoardName()));
+        return (!Objects.equals(this.getBoardId(), board.getBoardId())) && (this.getBoardName().equals(board.getBoardName()));
     }
 
     public void listTask() {

@@ -2,6 +2,8 @@ package com.wpn.kanban.parser.commands.board;
 
 import com.wpn.kanban.cli.AppContext;
 import com.wpn.kanban.cli.AppState;
+import com.wpn.kanban.exceptions.kanbanexceptions.BoardNotFoundException;
+import com.wpn.kanban.exceptions.kanbanexceptions.InvalidBoardIdException;
 import com.wpn.kanban.parser.Command;
 import com.wpn.kanban.parser.ParsedCommand;
 
@@ -10,25 +12,24 @@ import java.util.List;
 public class OpenBoardCommand implements Command {
 
     @Override
-    public String getDescription() {
-        return "Opens the board menu for board operations. Usage: board open <boardId>";
+    public String getName() {
+        return "open";
     }
 
     @Override
-    public void execute(AppContext appContext, ParsedCommand parsedCommand) {
-        String boardId = parsedCommand.getPositionalArgs().poll();
+    public String getDescription() {
+        return "Opens the board for board operations. Usage: board open <boardId>";
+    }
+
+    @Override
+    public void execute(AppContext appContext, ParsedCommand parsedCommand) throws InvalidBoardIdException, BoardNotFoundException {
+        String boardId = parsedCommand.getPositionalArgs().poll().trim();
         if(boardId == null){
-            System.out.println("Invalid BoardId");
-            return;
+            throw new InvalidBoardIdException("Invalid Board Id. Please enter correct board ID.");
         }
         AppState appState = appContext.getAppState();
         if(!appState.setBoardActive(boardId)) {
-            System.out.println("Unable to open board. Please enter the correct details.");
+            throw new BoardNotFoundException("Board not found. Please enter valid board ID. Use 'board list' to get the list of the boards created.");
         }
-    }
-
-    @Override
-    public String getName() {
-        return "OpenBoardCommand";
     }
 }

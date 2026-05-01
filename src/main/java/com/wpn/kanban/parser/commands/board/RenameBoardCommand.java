@@ -2,6 +2,9 @@ package com.wpn.kanban.parser.commands.board;
 
 import com.wpn.kanban.cli.AppContext;
 import com.wpn.kanban.cli.AppState;
+import com.wpn.kanban.exceptions.kanbanexceptions.InvalidBoardIdException;
+import com.wpn.kanban.exceptions.kanbanexceptions.InvalidBoardNameException;
+import com.wpn.kanban.exceptions.kanbanexceptions.UnableToRenameBoardException;
 import com.wpn.kanban.parser.Command;
 import com.wpn.kanban.parser.ParsedCommand;
 
@@ -14,21 +17,22 @@ public class RenameBoardCommand implements Command {
 
     @Override
     public String getDescription() {
-        return "Renames the command. Usage: rename boardId";
+        return "Renames the board. Usage: rename boardId <newBoardName>";
     }
 
     @Override
-    public void execute(AppContext appContext, ParsedCommand parsedCommand) {
+    public void execute(AppContext appContext, ParsedCommand parsedCommand) throws InvalidBoardIdException, InvalidBoardNameException, UnableToRenameBoardException {
         AppState appState = appContext.getAppState();
         String boardId = parsedCommand.getPositionalArgs().poll();
         if(boardId == null) {
-            System.out.println("Invalid BoardId");
-            return;
+            throw new InvalidBoardIdException("Invalid Board Id. Please enter correct board Id.");
         }
-        String boardName = parsedCommand.getPositionalArgs().poll();
+        String boardName = parsedCommand.getPositionalArgs().poll().trim();
+        if(boardName == null) {
+            throw new InvalidBoardNameException("Invalid Board Name. Please enter valid board name.");
+        }
         if(!appState.renameBoard(boardId, boardName)) {
-            System.out.println("Unable to rename board " + boardId);
-            return;
+            throw new UnableToRenameBoardException("Unable to rename board. Some error occurred.");
         }
         System.out.println("Board " + boardId + " renamed successfully");
     }

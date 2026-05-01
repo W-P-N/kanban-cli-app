@@ -14,7 +14,7 @@ public class ListBoardCommand implements Command {
     }
 
     public String getDescription() {
-        return "Returns list of kanban boards with their IDs";
+        return "Displays the list of kanban boards with their IDs";
     }
 
     public void execute(AppContext appContext, ParsedCommand parsedCommand) {
@@ -23,6 +23,5 @@ public class ListBoardCommand implements Command {
         for(Board board: boardList) {
             System.out.println(board.getBoardId() + " : " + board.getBoardName());
         }
-        return;
     }
 }

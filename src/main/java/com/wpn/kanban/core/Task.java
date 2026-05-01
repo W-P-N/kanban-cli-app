@@ -1,9 +1,6 @@
 package com.wpn.kanban.core;
 
-import com.wpn.kanban.exceptions.InvalidStatusTransitionException;
-
 import java.time.LocalDateTime;
-import java.util.Map;
 
 public class Task {
     private String id;

@@ -2,12 +2,12 @@ package com.wpn.kanban.cli;
 
 import com.wpn.kanban.core.Board;
 import com.wpn.kanban.exceptions.kanbanexceptions.InvalidCommandException;
-import com.wpn.kanban.exceptions.kanbanruntimeexceptions.CommandFileNotFoundException;
-import com.wpn.kanban.exceptions.kanbanruntimeexceptions.CommandInitiationException;
-import com.wpn.kanban.exceptions.kanbanruntimeexceptions.CommandNotFoundException;
+import com.wpn.kanban.exceptions.kanbanexceptions.KanbanException;
+import com.wpn.kanban.exceptions.kanbanruntimeexceptions.*;
 import com.wpn.kanban.parser.CommandLoader;
 import com.wpn.kanban.parser.CommandParser;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -21,7 +21,7 @@ public class Main {
         displayLoadingCommands();
         try {
             Map<String, Object> commands = CommandLoader.loadCommands("src/main/java/com/wpn/kanban/parser/commands.json");
-            cmdParser = new CommandParser(commands);
+            cmdParser = new CommandParser(appContext, commands);
         } catch(CommandInitiationException | CommandFileNotFoundException | CommandNotFoundException e) {
             System.out.println("Loading Commands failed: " + e.getMessage());
         }
@@ -35,15 +35,21 @@ public class Main {
             return;
         }
 
+        try {
+            clearTerminal();
+        } catch(KanbanRuntimeException e) {
+            System.out.println(e.getMessage());
+        }
+
         displayWelcome();
 
         while(appContext.isRunning()) {
             Board activeBoard = appState.getActiveBoard();
-            System.out.print((activeBoard == null ? "" : "(" + activeBoard.getBoardId() + ") " ) + "> ");
+            System.out.print((activeBoard == null ? "" : "(" + activeBoard.getBoardName() + ") " ) + "> ");
             String input = scn.nextLine();
             try {
                 cmdParser.parse(input, appContext);
-            } catch(InvalidCommandException e) {
+            } catch(KanbanException e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -64,5 +70,22 @@ public class Main {
     private static void displayLoadingCommands () {
         System.out.println("Loading Commands....");
         System.out.println("Reading Command File....");
+    }
+
+    private static void clearTerminal() {
+        try {
+            String osName = System.getProperty("os.name");
+            if(osName == null) {
+                System.out.println("Unable to determine OS. Skipping terminal clear.");
+                return;
+            }
+            if(osName.contains("Windows")) {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else {
+                new ProcessBuilder("clear").inheritIO().start().waitFor();
+            }
+        } catch(IOException | InterruptedException e){
+            throw new UnableToClearTerminal("Unable to clear terminal.", e);
+        }
     }
 }

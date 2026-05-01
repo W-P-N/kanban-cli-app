@@ -36,9 +36,7 @@ public final class AppState {
     }
 
     public boolean deleteBoard(String boardId) {
-        boolean isBoardRemoved = false;
-        isBoardRemoved = boardList.removeIf(board -> board.getBoardId().equals(boardId));
-        return isBoardRemoved;
+        return boardList.removeIf(board -> board.getBoardId().equals(boardId));
     }
 
     public boolean renameBoard(String boardId, String boardName) {

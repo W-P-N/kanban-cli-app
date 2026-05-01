@@ -10,7 +10,7 @@ public class QuitCommand implements Command {
     }
 
     public String getDescription() {
-        return "";
+        return "Saves the state and quits the application.";
     }
 
     public void execute(AppContext appContext, ParsedCommand parsedCommand) {
