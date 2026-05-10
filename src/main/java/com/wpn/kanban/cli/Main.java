@@ -1,7 +1,6 @@
 package com.wpn.kanban.cli;
 
 import com.wpn.kanban.core.Board;
-import com.wpn.kanban.exceptions.kanbanexceptions.InvalidCommandException;
 import com.wpn.kanban.exceptions.kanbanexceptions.KanbanException;
 import com.wpn.kanban.exceptions.kanbanruntimeexceptions.*;
 import com.wpn.kanban.parser.CommandLoader;
@@ -17,22 +16,23 @@ public class Main {
         AppContext appContext = null;
         AppState appState = null;
         try {
-            String filePath = System.getProperty("user.home") + "/.kanaban/persistance.json";
+            String filePath = System.getProperty("user.home") + "/.kanban-cli/persistance.json";
             appContext = new AppContext(filePath);
             appState = appContext.getAppState();
         } catch(Exception e) {
             System.out.println(e.getMessage());
         }
 
-        if(appContext == null) {
+        if(appContext == null || appState == null) {
             return;
         }
 
         Scanner scn = new Scanner(System.in);
         CommandParser cmdParser = null;
-        displayLoadingCommands();
         try {
-            Map<String, Object> commands = CommandLoader.loadCommands("src/main/java/com/wpn/kanban/parser/commands.json");
+            System.out.println("Loading Commands...");
+            Map<String, Object> commands = CommandLoader.loadCommands();
+            System.out.println("Reading Command File...");
             cmdParser = new CommandParser(appContext, commands);
         } catch(CommandInitiationException | CommandFileNotFoundException | CommandNotFoundException e) {
             System.out.println("Loading Commands failed: " + e.getMessage());
@@ -78,11 +78,6 @@ public class Main {
                     """);
         System.out.println("Welcome to Kanban CLI. Type help to see commands.");
     };
-
-    private static void displayLoadingCommands () {
-        System.out.println("Loading Commands....");
-        System.out.println("Reading Command File....");
-    }
 
     private static void clearTerminal() {
         try {

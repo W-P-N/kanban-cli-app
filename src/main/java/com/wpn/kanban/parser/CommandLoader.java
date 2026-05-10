@@ -1,6 +1,7 @@
 package com.wpn.kanban.parser;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -9,6 +10,7 @@ import java.util.Map;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wpn.kanban.cli.Main;
 import com.wpn.kanban.exceptions.kanbanruntimeexceptions.CommandInitiationException;
 import com.wpn.kanban.exceptions.kanbanruntimeexceptions.CommandNotFoundException;
 import com.wpn.kanban.exceptions.kanbanruntimeexceptions.CommandFileNotFoundException;
@@ -16,13 +18,13 @@ import com.wpn.kanban.exceptions.kanbanruntimeexceptions.CommandFileNotFoundExce
 public final class CommandLoader {
     private CommandLoader() {};
 
-    public static Map<String, Object> loadCommands(String configPath) {
+    public static Map<String, Object> loadCommands() {
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, Object> registry = new HashMap<>();
         Map<String, Object> temp;
         try {
-            String json = new String(Files.readAllBytes(Paths.get(configPath)));
-            temp = objectMapper.readValue(json, new TypeReference<>() {});
+            InputStream stream = Main.class.getResourceAsStream("/commands.json");
+            temp = new ObjectMapper().readValue(stream, new TypeReference<>() {});
         } catch (IOException e) {
             throw new CommandFileNotFoundException("'commands.json' file not found. Please re-install the application.", e);
         }
