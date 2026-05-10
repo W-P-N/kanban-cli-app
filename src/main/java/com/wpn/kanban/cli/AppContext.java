@@ -1,7 +1,5 @@
 package com.wpn.kanban.cli;
 
-import com.wpn.kanban.exceptions.kanbanruntimeexceptions.KanbanRuntimeException;
-
 import java.util.Map;
 
 public final class AppContext {
@@ -12,8 +10,7 @@ public final class AppContext {
 
     public AppContext(String filePath) {
         persistanceManager = new PersistenceManager(filePath);
-//        appState = persistanceManager.load();
-        appState = new AppState();
+        appState = persistanceManager.load();
         commandRegistry = null;
     }
 

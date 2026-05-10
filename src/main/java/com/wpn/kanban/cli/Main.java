@@ -17,7 +17,8 @@ public class Main {
         AppContext appContext = null;
         AppState appState = null;
         try {
-            appContext = new AppContext("persistance.json");
+            String filePath = System.getProperty("user.home") + "/.kanaban/persistance.json";
+            appContext = new AppContext(filePath);
             appState = appContext.getAppState();
         } catch(Exception e) {
             System.out.println(e.getMessage());

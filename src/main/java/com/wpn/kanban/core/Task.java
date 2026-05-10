@@ -1,5 +1,8 @@
 package com.wpn.kanban.core;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.time.LocalDateTime;
 
 public class Task {
@@ -10,7 +13,12 @@ public class Task {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public Task(String id, String title) {
+    @JsonCreator
+    public Task(
+            @JsonProperty("id") String id,
+            @JsonProperty("title") String title
+    )
+    {
         this.id = id;
         this.title = title;
         this.status = Status.TODO;

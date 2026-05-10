@@ -1,5 +1,8 @@
 package com.wpn.kanban.core;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.*;
 
 public class Board {
@@ -7,10 +10,15 @@ public class Board {
     private String boardName;
     private final Map<String, Task> taskMap;
 
-    public Board(String boardId, String boardName) {
+    @JsonCreator
+    public Board(
+            @JsonProperty("boardId") String boardId,
+            @JsonProperty("boardName") String boardName,
+            @JsonProperty("taskMap") Map<String, Task> taskMap
+    ) {
         this.boardId = boardId;
         this.boardName = boardName;
-        this.taskMap = new HashMap<>(10);
+        this.taskMap = taskMap != null ? taskMap : new HashMap<>(10);
     }
 
     public Map<String, Task> getTaskMap() {

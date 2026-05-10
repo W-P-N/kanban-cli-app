@@ -18,7 +18,7 @@ public final class AppState {
         }
         Random randomNum = new Random();
         String boardId = "" + randomNum.nextInt(10000);
-        Board newBoard = new Board(boardId, boardName);
+        Board newBoard = new Board(boardId, boardName, null);
         boardList.add(newBoard);
         return true;
     }
