@@ -12,7 +12,8 @@ public final class AppContext {
 
     public AppContext(String filePath) {
         persistanceManager = new PersistenceManager(filePath);
-        appState = persistanceManager.load();
+//        appState = persistanceManager.load();
+        appState = new AppState();
         commandRegistry = null;
     }
 

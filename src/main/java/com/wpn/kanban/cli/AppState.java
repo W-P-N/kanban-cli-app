@@ -4,12 +4,11 @@ import com.wpn.kanban.core.Board;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.Random;
 
 public final class AppState {
     private Board activeBoard;
     private final List<Board> boardList = new ArrayList<>();
-    private final AtomicInteger boardIdCounter = new AtomicInteger(1000);
 
     public boolean addBoard(String boardName) {
         for(Board board: boardList) {
@@ -17,7 +16,8 @@ public final class AppState {
                 return false;
             }
         }
-        String boardId = "" + boardIdCounter.incrementAndGet();
+        Random randomNum = new Random();
+        String boardId = "" + randomNum.nextInt(10000);
         Board newBoard = new Board(boardId, boardName);
         boardList.add(newBoard);
         return true;
@@ -25,14 +25,6 @@ public final class AppState {
 
     public List<Board> getBoardList() {
         return new ArrayList<>(boardList);
-    }
-
-    public void resetBoardIdCounter() {
-        boardIdCounter.set(1000);
-    }
-
-    public int getBoardIdFromCounter() {
-        return boardIdCounter.incrementAndGet();
     }
 
     public boolean deleteBoard(String boardId) {
