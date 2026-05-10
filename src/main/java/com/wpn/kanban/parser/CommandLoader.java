@@ -8,12 +8,13 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wpn.kanban.cli.Main;
 import com.wpn.kanban.exceptions.kanbanruntimeexceptions.CommandInitiationException;
 import com.wpn.kanban.exceptions.kanbanruntimeexceptions.CommandNotFoundException;
 import com.wpn.kanban.exceptions.kanbanruntimeexceptions.CommandFileNotFoundException;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.type.TypeReference;
+import tools.jackson.databind.ObjectMapper;
 
 public final class CommandLoader {
     private CommandLoader() {};
@@ -25,7 +26,7 @@ public final class CommandLoader {
         try {
             InputStream stream = Main.class.getResourceAsStream("/commands.json");
             temp = new ObjectMapper().readValue(stream, new TypeReference<>() {});
-        } catch (IOException e) {
+        } catch (JacksonException e) {
             throw new CommandFileNotFoundException("'commands.json' file not found. Please re-install the application.", e);
         }
         for(Map.Entry<String, Object> entry: temp.entrySet()) {
