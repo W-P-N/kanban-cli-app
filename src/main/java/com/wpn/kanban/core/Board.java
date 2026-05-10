@@ -79,18 +79,14 @@ public class Board {
 
         for(Map.Entry<String, Task> entry: taskMap.entrySet()) {
             Task currentTask = entry.getValue();
-            switch(currentTask.getStatus()) {
-                case Status.TODO:
-                    todoTasks.add(currentTask);
-                    break;
-                case Status.DOING:
-                    doingTasks.add(currentTask);
-                    break;
-                case Status.FINISHED:
-                    finishedTasks.add(currentTask);
-                    break;
-                default:
-                    break;
+            Status currentTaskStatus = currentTask.getStatus();
+
+            if(currentTaskStatus.equals(Status.TODO)) {
+                todoTasks.add(currentTask);
+            } else if(currentTaskStatus.equals(Status.DOING)) {
+                doingTasks.add(currentTask);
+            } else {
+                finishedTasks.add(currentTask);
             }
         }
 
