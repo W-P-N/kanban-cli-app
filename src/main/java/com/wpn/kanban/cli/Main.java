@@ -13,8 +13,19 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        AppContext appContext = new AppContext();
-        AppState appState = appContext.getAppState();
+
+        AppContext appContext = null;
+        AppState appState = null;
+        try {
+            appContext = new AppContext("persistance.json");
+            appState = appContext.getAppState();
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        if(appContext == null) {
+            return;
+        }
 
         Scanner scn = new Scanner(System.in);
         CommandParser cmdParser = null;

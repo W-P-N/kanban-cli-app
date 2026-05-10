@@ -15,6 +15,14 @@ public class Board {
         this.taskMap = new HashMap<>(10);
     }
 
+    public AtomicInteger getTaskIdCounter() {
+        return taskIdCounter;
+    }
+
+    public Map<String, Task> getTaskMap() {
+        return taskMap;
+    }
+
     public String getBoardId() {
         return boardId;
     }

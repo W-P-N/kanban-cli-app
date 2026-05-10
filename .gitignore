@@ -38,3 +38,4 @@ build/
 ### Mac OS ###
 .DS_Store
 AGENT.md
+src/main/resources/persistance.json

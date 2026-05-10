@@ -1,14 +1,18 @@
 package com.wpn.kanban.cli;
 
+import com.wpn.kanban.exceptions.kanbanruntimeexceptions.KanbanRuntimeException;
+
 import java.util.Map;
 
 public final class AppContext {
     private boolean running = true;
     private final AppState appState;
     private Map<String, Object> commandRegistry;
+    private final PersistenceManager persistanceManager;
 
-    public AppContext() {
-        appState = new AppState();
+    public AppContext(String filePath) {
+        persistanceManager = new PersistenceManager(filePath);
+        appState = persistanceManager.load();
         commandRegistry = null;
     }
 
@@ -25,6 +29,7 @@ public final class AppContext {
     }
 
     public void stop() {
+        this.persistanceManager.save(this.appState);
         this.running = false;
     }
 
