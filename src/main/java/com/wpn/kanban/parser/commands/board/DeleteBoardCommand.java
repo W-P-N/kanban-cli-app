@@ -22,7 +22,7 @@ public class DeleteBoardCommand implements Command {
     @Override
     public void execute(AppContext appContext, ParsedCommand parsedCommand) throws InvalidBoardIdException, UnableToDeleteBoardException {
         AppState appState = appContext.getAppState();
-        String boardId = parsedCommand.getPositionalArgs().poll().trim();
+        String boardId = parsedCommand.getPositionalArgs().poll();
         if(boardId == null) {
             throw new InvalidBoardIdException("Invalid Board Id. Please enter correct board Id.");
         }

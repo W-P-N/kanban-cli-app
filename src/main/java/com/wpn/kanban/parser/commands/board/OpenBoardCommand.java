@@ -23,7 +23,7 @@ public class OpenBoardCommand implements Command {
 
     @Override
     public void execute(AppContext appContext, ParsedCommand parsedCommand) throws InvalidBoardIdException, BoardNotFoundException {
-        String boardId = parsedCommand.getPositionalArgs().poll().trim();
+        String boardId = parsedCommand.getPositionalArgs().poll();
         if(boardId == null){
             throw new InvalidBoardIdException("Invalid Board Id. Please enter correct board ID.");
         }

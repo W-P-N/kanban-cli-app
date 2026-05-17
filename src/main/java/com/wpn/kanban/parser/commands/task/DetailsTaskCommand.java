@@ -23,7 +23,7 @@ public class DetailsTaskCommand implements Command {
 
     @Override
     public void execute(AppContext appContext, ParsedCommand parsedCommand) throws InvalidTaskIdException, NoActiveBoardException, NoTaskFoundException {
-        String taskId = parsedCommand.getPositionalArgs().poll().trim();
+        String taskId = parsedCommand.getPositionalArgs().poll();
         if(taskId == null) {
             throw new InvalidTaskIdException("Invalid Task Id. Please enter valid taskId. Use 'task list' to view tasks in this board.");
         }

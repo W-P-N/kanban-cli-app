@@ -27,7 +27,7 @@ public class DeleteTaskCommand implements Command {
         if(activeBoard == null) {
             throw new NoActiveBoardException("No Active Board Found. Use 'board open <boardId>' to open the board.");
         }
-        String taskId = parsedCommand.getPositionalArgs().poll().trim();
+        String taskId = parsedCommand.getPositionalArgs().poll();
         if(taskId == null) {
             throw new InvalidTaskIdException("Invalid task ID. Please enter valid taskId.");
         }

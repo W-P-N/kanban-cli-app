@@ -20,7 +20,7 @@ public class RenameTaskCommand implements Command {
 
     @Override
     public void execute(AppContext appContext, ParsedCommand parsedCommand) throws InvalidTaskIdException, InvalidTaskNameException, NoActiveBoardException, UnableToRenameTaskException {
-        String taskId = parsedCommand.getPositionalArgs().poll().trim();
+        String taskId = parsedCommand.getPositionalArgs().poll();
         if(taskId == null) {
             throw new InvalidTaskIdException("Invalid Task Id. Please enter valid taskId");
         }

@@ -27,7 +27,7 @@ public class RenameBoardCommand implements Command {
         if(boardId == null) {
             throw new InvalidBoardIdException("Invalid Board Id. Please enter correct board Id.");
         }
-        String boardName = parsedCommand.getPositionalArgs().poll().trim();
+        String boardName = parsedCommand.getPositionalArgs().poll();
         if(boardName == null) {
             throw new InvalidBoardNameException("Invalid Board Name. Please enter valid board name.");
         }
