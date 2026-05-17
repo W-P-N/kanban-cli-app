@@ -17,7 +17,7 @@ public class AdvanceStatusCommand implements Command {
 
     @Override
     public void execute(AppContext appContext, ParsedCommand parsedCommand) throws InvalidTaskIdException, TaskNotFoundException, InvalidStatusTransition {
-        String taskId = parsedCommand.getPositionalArgs().poll().trim();
+        String taskId = parsedCommand.getPositionalArgs().poll();
         if(taskId == null){
             throw new InvalidTaskIdException("Invalid Task ID. Use 'task list' to get the list of tasks in the active board.");
         }
