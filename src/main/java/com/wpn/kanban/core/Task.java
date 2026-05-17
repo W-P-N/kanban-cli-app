@@ -26,12 +26,24 @@ public class Task {
         this.updatedAt = this.createdAt;
     }
 
-    public void advanceTask() {
-        this.setStatus(this.getStatus().next());
+    public boolean advanceTask() {
+        Status prevStatus = this.getStatus();
+        Status newStatus = this.getStatus().next();
+        if(newStatus == prevStatus) {
+            return false;
+        }
+        this.setStatus(newStatus);
+        return true;
     }
 
-    public void revertTask() {
-        this.setStatus(this.getStatus().previous());
+    public boolean revertTask() {
+        Status prevStatus = this.getStatus();
+        Status newStatus = this.getStatus().previous();
+        if(newStatus == prevStatus) {
+            return false;
+        }
+        this.setStatus(newStatus);
+        return true;
     }
 
     public String getId() {
