@@ -5,6 +5,11 @@ import com.wpn.kanban.exceptions.kanbanexceptions.KanbanException;
 import com.wpn.kanban.exceptions.kanbanruntimeexceptions.*;
 import com.wpn.kanban.parser.CommandLoader;
 import com.wpn.kanban.parser.CommandParser;
+import org.jline.reader.LineReader;
+import org.jline.reader.LineReaderBuilder;
+import org.jline.reader.impl.history.DefaultHistory;
+import org.jline.terminal.Terminal;
+import org.jline.terminal.TerminalBuilder;
 
 import java.io.IOException;
 import java.util.Map;
@@ -27,7 +32,7 @@ public class Main {
             return;
         }
 
-        Scanner scn = new Scanner(System.in);
+//        Scanner scn = new Scanner(System.in);
         CommandParser cmdParser = null;
         try {
             System.out.println("Loading Commands...");
@@ -54,11 +59,29 @@ public class Main {
         }
 
         displayWelcome();
+        Terminal terminal = null;
+        LineReader lineReader = null;
+        Scanner scn = null;
+        try {
+            terminal = TerminalBuilder.terminal();
+            lineReader = LineReaderBuilder.builder()
+                    .terminal(terminal)
+                    .history(new DefaultHistory())
+                    .build();
+        } catch(IOException exception) {
+            System.out.println("Unable to start line reader");
+            scn = new Scanner(System.in);
+        }
 
         while(appContext.isRunning()) {
             Board activeBoard = appState.getActiveBoard();
-            System.out.print((activeBoard == null ? "" : "(" + activeBoard.getBoardName() + ") " ) + "> ");
-            String input = scn.nextLine();
+            System.out.print(activeBoard == null ? "" : "(" + activeBoard.getBoardName() + ") ");
+            String input;
+            if(lineReader != null) {
+                input = lineReader.readLine("> ");
+            } else {
+                input = scn.nextLine();
+            }
             try {
                 cmdParser.parse(input, appContext);
             } catch(KanbanException e) {

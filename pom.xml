@@ -26,6 +26,11 @@
             <version>3.0.0-rc2</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>org.jline</groupId>
+            <artifactId>jline</artifactId>
+            <version>3.25.0</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
