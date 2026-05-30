@@ -12,7 +12,7 @@ public class InputTokenizer {
         Matcher matcher = pattern.matcher(input);
         tokenizedInputArray = new ArrayDeque<>();
         while(matcher.find()) {
-            String matchedGroup = matcher.group();
+            String matchedGroup = matcher.group(1) != null ? matcher.group(1) : matcher.group();
             if(matchedGroup != null) {
                 tokenizedInputArray.offer(matchedGroup);
             }
