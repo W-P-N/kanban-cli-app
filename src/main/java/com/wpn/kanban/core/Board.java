@@ -66,12 +66,6 @@ public class Board {
         return (!Objects.equals(this.getBoardId(), board.getBoardId())) && (this.getBoardName().equals(board.getBoardName()));
     }
 
-    public void listTask() {
-        for(Map.Entry<String, Task> entry: taskMap.entrySet()) {
-            System.out.println(entry.getKey() + " - " + entry.getValue().getTitle());
-        }
-    }
-
     public void viewBoard() {
         List<Task> todoTasks = new ArrayList<>();
         List<Task> doingTasks = new ArrayList<>();
