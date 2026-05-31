@@ -120,5 +120,18 @@ public class Board {
         return true;
     }
 
+    public Map<Status, Integer> countTaskByStatus() {
+        Map<Status, Integer> taskCountByStatus = new HashMap<>();
+        taskCountByStatus.put(Status.TODO, 0);
+        taskCountByStatus.put(Status.DOING, 0);
+        taskCountByStatus.put(Status.FINISHED, 0);
+        for(Map.Entry<String, Task> entry: taskMap.entrySet()) {
+            Task currentTask = entry.getValue();
+            Status currentTaskStatus = currentTask.getStatus();
+            taskCountByStatus.put(currentTaskStatus, taskCountByStatus.get(currentTaskStatus) + 1);
+        }
+        return taskCountByStatus;
+    }
+
 
 }
