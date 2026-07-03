@@ -196,4 +196,4 @@ You are free to use, modify, and distribute this software under the terms of GPL
 
 ## Author
 
-Built with ❤️ by [Parth Wani](https://github.com/W-P-N)
+Built by [Parth Wani](https://github.com/W-P-N)
