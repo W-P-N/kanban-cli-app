@@ -23,7 +23,7 @@ public class PersistenceManager {
             return new AppState();
         }
         try {
-            return objectMapper.readValue(new File(filePath), AppState.class);
+            return objectMapper.readValue(file, AppState.class);
         } catch (JacksonException e) {
             throw new KanbanRuntimeException("Unable to read json file: " + e.getMessage(), e);
         }
@@ -35,7 +35,7 @@ public class PersistenceManager {
             if(!file.exists()) {
                 boolean dirSet = file.getParentFile().mkdirs();
                 if(!dirSet) {
-                    throw new IOException("Unable to create dir. Ensure that the app has appropriate permissions.");
+                    throw new IOException("Unable to create dir.");
                 }
             }
             objectMapper.writeValue(file, appState);

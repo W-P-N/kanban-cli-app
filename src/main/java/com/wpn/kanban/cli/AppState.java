@@ -8,7 +8,7 @@ import java.util.Random;
 
 public final class AppState {
     private Board activeBoard;
-    private final List<Board> boardList = new ArrayList<>();
+    private List<Board> boardList = new ArrayList<>();
 
     public boolean addBoard(String boardName) {
         for(Board board: boardList) {
@@ -25,6 +25,9 @@ public final class AppState {
 
     public List<Board> getBoardList() {
         return new ArrayList<>(boardList);
+    }
+    public void setBoardList(List<Board> boardList) {
+        this.boardList = boardList;
     }
 
     public boolean deleteBoard(String boardId) {

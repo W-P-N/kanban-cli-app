@@ -53,7 +53,6 @@ public class ParsedCommand {
     }
 
     public boolean isUnquoted(String key) {
-        System.out.println(unquotedNamedArgs);
         return unquotedNamedArgs.contains(key);
     }
 }

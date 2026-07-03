@@ -31,7 +31,7 @@ public class AddTaskCommand implements Command {
         Deque<String> posArgs = parsedCommand.getPositionalArgs();
         Map<String, String> namedArgs = parsedCommand.getNamedArgs();
         if(parsedCommand.isUnquoted("desc")) {
-            System.out.println("Description must be in quotes. Usage: task add <taskName> --desc=\\\"description\\\"");
+            System.out.println("Description must be in quotes. Usage: task add <taskName> --desc=\"description\"");
             return;
         }
         if(!activeBoard.addTask(posArgs.poll(), namedArgs.get("desc"))) {
