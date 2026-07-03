@@ -9,7 +9,6 @@ import com.wpn.kanban.parser.Command;
 import com.wpn.kanban.parser.ParsedCommand;
 
 import java.util.Deque;
-import java.util.List;
 import java.util.Map;
 
 public class AddTaskCommand implements Command {
@@ -24,12 +23,16 @@ public class AddTaskCommand implements Command {
     }
 
     public void execute(AppContext appContext, ParsedCommand parsedCommand) throws NoActiveBoardException, TaskAlreadyExistsException {
-        Deque<String> posArgs = parsedCommand.getPositionalArgs();
-        Map<String, String> namedArgs = parsedCommand.getNamedArgs();
         AppState appState = appContext.getAppState();
         Board activeBoard = appState.getActiveBoard();
         if(activeBoard == null){
             throw new NoActiveBoardException("No Active Board Found. Use 'board open <boardId>' to activate board.");
+        }
+        Deque<String> posArgs = parsedCommand.getPositionalArgs();
+        Map<String, String> namedArgs = parsedCommand.getNamedArgs();
+        if(parsedCommand.isUnquoted("desc")) {
+            System.out.println("Description must be in quotes. Usage: task add <taskName> --desc=\\\"description\\\"");
+            return;
         }
         if(!activeBoard.addTask(posArgs.poll(), namedArgs.get("desc"))) {
             throw new TaskAlreadyExistsException("Task already exists. Please enter new task name.");
