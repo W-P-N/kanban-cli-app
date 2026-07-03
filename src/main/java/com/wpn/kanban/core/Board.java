@@ -74,7 +74,6 @@ public class Board {
         for(Map.Entry<String, Task> entry: taskMap.entrySet()) {
             Task currentTask = entry.getValue();
             Status currentTaskStatus = currentTask.getStatus();
-
             if(currentTaskStatus.equals(Status.TODO)) {
                 todoTasks.add(currentTask);
             } else if(currentTaskStatus.equals(Status.DOING)) {
@@ -84,19 +83,39 @@ public class Board {
             }
         }
 
-        System.out.println("TODO: ");
-        for(Task task: todoTasks) {
-            System.out.print(task.getId() + ": " + task.getTitle());
+        int totalTasks = todoTasks.size() + doingTasks.size() + finishedTasks.size();
+        double completionPercentage = totalTasks == 0 ? 0 : (double) finishedTasks.size() / totalTasks * 100;
+        int progressBarFilled = (int) (completionPercentage / 100 * 20);
+        String progressBar = "█".repeat(progressBarFilled) + "░".repeat(20 - progressBarFilled);
+        String health = completionPercentage >= 70 ? "🟢" : completionPercentage >= 30 ? "🟡" : "🔴";
+
+        System.out.println("┌──────────────────────────────────────────────────────┐");
+        System.out.printf( "│  %-30s     HEALTH: %s %.0f%%   │%n", boardName, health, completionPercentage);
+        System.out.println("│  ──────────────────────────────────────────────────  │");
+        System.out.printf( "│  Progress: %s  %d/%d done            │%n", progressBar, finishedTasks.size(), totalTasks);
+        System.out.println("├───────────┬──────────────────────────────────────────┤");
+
+        printTaskSection("TODO", todoTasks);
+        System.out.println("├───────────┼──────────────────────────────────────────┤");
+        printTaskSection("DOING", doingTasks);
+        System.out.println("├───────────┼──────────────────────────────────────────┤");
+        printTaskSection("FINISHED", finishedTasks);
+
+        System.out.println("└───────────┴──────────────────────────────────────────┘");
+    }
+
+    private void printTaskSection(String label, List<Task> tasks) {
+        if(tasks.isEmpty()) {
+            System.out.printf("│  %-8s │  %-40s│%n", label, "-");
+            return;
         }
-        System.out.println();
-        System.out.println("DOING: ");
-        for(Task task: doingTasks) {
-            System.out.print(task.getId() + ": " + task.getTitle());
-        }
-        System.out.println();
-        System.out.println("FINISHED: ");
-        for(Task task: finishedTasks) {
-            System.out.print(task.getId() + ": " + task.getTitle());
+        for(int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            String sectionLabel = i == 0 ? label : "";
+            System.out.printf("│  %-8s │  #%-6s %-33s│%n",
+                    sectionLabel,
+                    task.getId(),
+                    task.getTitle());
         }
     }
 
