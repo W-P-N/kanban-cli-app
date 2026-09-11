@@ -72,7 +72,6 @@ public class Main {
             System.out.println("Unable to start line reader");
             scn = new Scanner(System.in);
         }
-
         while(appContext.isRunning()) {
             Board activeBoard = appState.getActiveBoard();
             System.out.print(activeBoard == null ? "" : "(" + activeBoard.getBoardName() + ") ");

@@ -6,6 +6,7 @@ import com.wpn.kanban.core.Board;
 import com.wpn.kanban.exceptions.kanbanexceptions.*;
 import com.wpn.kanban.parser.Command;
 import com.wpn.kanban.parser.ParsedCommand;
+import com.wpn.kanban.parser.commands.util.ValidationUtils;
 
 public class RenameTaskCommand implements Command {
     @Override
@@ -21,13 +22,7 @@ public class RenameTaskCommand implements Command {
     @Override
     public void execute(AppContext appContext, ParsedCommand parsedCommand) throws InvalidTaskIdException, InvalidTaskNameException, NoActiveBoardException, UnableToRenameTaskException {
         String taskId = parsedCommand.getPositionalArgs().poll();
-        if(taskId == null) {
-            throw new InvalidTaskIdException("Invalid Task Id. Please enter valid taskId");
-        }
         String newName = parsedCommand.getPositionalArgs().poll();
-        if(newName == null) {
-            throw new InvalidTaskNameException("invalid Task Name. Please enter valid taskName");
-        }
         AppState appState = appContext.getAppState();
         Board activeBoard = appState.getActiveBoard();
         if(activeBoard == null) {
@@ -37,5 +32,16 @@ public class RenameTaskCommand implements Command {
             throw new UnableToRenameTaskException("Unable to rename task. Unexpected error occurred");
         }
         System.out.println("Task renamed");
+    }
+
+    @Override
+    public boolean validateArgs(ParsedCommand parsedCommand) {
+        if(!ValidationUtils.requireArgs(parsedCommand,2," task rename <taskId> <newTaskName>")){
+            return false;
+        }
+        if(!ValidationUtils.requireInteger(parsedCommand.getPositionalArgs().getFirst(),"Task ID","task rename <teskId> <newTeskName>")){
+            return false;
+        }
+        return true;
     }
 }

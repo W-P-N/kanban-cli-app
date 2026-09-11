@@ -8,6 +8,7 @@ import com.wpn.kanban.exceptions.kanbanexceptions.NoActiveBoardException;
 import com.wpn.kanban.exceptions.kanbanexceptions.UnableToDeleteTaskException;
 import com.wpn.kanban.parser.Command;
 import com.wpn.kanban.parser.ParsedCommand;
+import com.wpn.kanban.parser.commands.util.ValidationUtils;
 
 public class DeleteTaskCommand implements Command {
     @Override
@@ -28,12 +29,19 @@ public class DeleteTaskCommand implements Command {
             throw new NoActiveBoardException("No Active Board Found. Use 'board open <boardId>' to open the board.");
         }
         String taskId = parsedCommand.getPositionalArgs().poll();
-        if(taskId == null) {
-            throw new InvalidTaskIdException("Invalid task ID. Please enter valid taskId.");
-        }
         if(!activeBoard.deleteTask(taskId)) {
             throw new UnableToDeleteTaskException("Unable to delete task. Task not present in the list. Use 'task list' to get the task list.");
         }
         System.out.println("Task deleted successfully");
+    }
+    @Override
+    public boolean validateArgs(ParsedCommand parsedCommand) {
+        if(!ValidationUtils.requireArgs(parsedCommand,1,"task delete <teskId>")){
+            return false;
+        }
+        if(!ValidationUtils.requireInteger(parsedCommand.getPositionalArgs().getFirst(),"task ID","task delete <taskId>")){
+            return false;
+        }
+        return true;
     }
 }

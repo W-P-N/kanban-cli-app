@@ -8,6 +8,7 @@ import com.wpn.kanban.exceptions.kanbanexceptions.InvalidTaskIdException;
 import com.wpn.kanban.exceptions.kanbanexceptions.TaskNotFoundException;
 import com.wpn.kanban.parser.Command;
 import com.wpn.kanban.parser.ParsedCommand;
+import com.wpn.kanban.parser.commands.util.ValidationUtils;
 
 public class RevertStatusCommand implements Command {
     @Override
@@ -23,9 +24,6 @@ public class RevertStatusCommand implements Command {
     @Override
     public void execute(AppContext appContext, ParsedCommand parsedCommand) throws InvalidTaskIdException, TaskNotFoundException, InvalidStatusTransition {
         String taskId = parsedCommand.getPositionalArgs().poll();
-        if(taskId == null){
-            throw new InvalidTaskIdException("Invalid Task ID. Use 'task list' to get the list of tasks in the active board.");
-        }
         AppState appState = appContext.getAppState();
         Task foundTask = appState.getActiveBoard().findTask(taskId);
         if(foundTask == null) {
@@ -34,5 +32,16 @@ public class RevertStatusCommand implements Command {
         if(!foundTask.revertTask()) {
             throw new InvalidStatusTransition("Task is already TODO. Cannot revert.");
         }
+    }
+
+    @Override
+    public boolean validateArgs(ParsedCommand parsedCommand) {
+        if(!ValidationUtils.requireArgs(parsedCommand,1,"task revert <taskId>")){
+            return false;
+        }
+        if(!ValidationUtils.requireInteger(parsedCommand.getPositionalArgs().getFirst(),"Task ID","task revert <taskId>")){
+            return false;
+        }
+        return  true;
     }
 }
