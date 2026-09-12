@@ -17,13 +17,21 @@ public final class ValidationUtils {
             Integer.parseInt(value);
             return true;
         } catch(NumberFormatException e) {
-            System.out.println("Error: " + fieldName + " must be a valid number. " + "Usage " + usage);
+            System.out.println("Error: " + fieldName + " must be a valid number. " + "Usage:" + usage);
             return false;
         }
     }
-    public static boolean requireFor(ParsedCommand cmd,String fieldName,String usage) {
-        if (cmd.isUnquoted("desc")) {
-            System.out.println("Error " + fieldName + " must be a valid quotes. " + "Usage" + usage);
+    public static boolean requireQuoted(ParsedCommand cmd,String flagName,String fieldName,String usage) {
+        if (cmd.isUnquoted(flagName)) {
+            System.out.println("Error: " + fieldName + " must be a valid quotes. " + "Usage: " + usage);
+            return false;
+        }
+        return true;
+    }
+    public static boolean requireNonBlank(ParsedCommand cmd,String flagName,String fieldName,String usage) {
+        String name = cmd.getNamedArgs().get(flagName);
+        if (name == null || name.trim().isEmpty()) {
+            System.out.println("Error: " + fieldName + " cannot be empty. " + "Usage: " + usage);
             return false;
         }
         return true;

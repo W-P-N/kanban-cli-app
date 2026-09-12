@@ -39,19 +39,28 @@ public class AddTaskCommand implements Command {
 
     @Override
     public boolean validateArgs(ParsedCommand parsedCommand) {
-        if(!ValidationUtils.requireArgs(parsedCommand,1,"tast add <taskName>")){
+        //TMY_NOTE 参数检查
+        if(!ValidationUtils.requireArgs(parsedCommand,1,"task add <taskName>")){
             return false;
         }
         /**
          * Check if --desc is provided
          * */
         if(parsedCommand.getNamedArgs().containsKey("desc")){
-            String desc = parsedCommand.getNamedArgs().get("desc");
-            if(!ValidationUtils.requireFor(parsedCommand,"description","tast add <taskName> --desc=\"<taskDescription>\"")){
+            if(!ValidationUtils.requireQuoted(
+                    parsedCommand,
+                    "desc",
+                    "taskDescription",
+                    "task add <taskName> --desc=\"<taskDescription>\"")
+            ){
                 return false;
             }
-            if(desc.isEmpty() || desc.contains(" ")){
-                System.out.println("Error description must be null , tast add <taskName> --desc=\"<taskDescription>\" ");
+            if(!ValidationUtils.requireNonBlank(
+                    parsedCommand,
+                    "desc",
+                    "taskDescription",
+                    "task add <taskName> --desc=\"<taskDescription>\"")
+            ){
                 return false;
             }
         }
