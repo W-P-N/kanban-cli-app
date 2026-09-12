@@ -39,7 +39,7 @@ public class AddTaskCommand implements Command {
 
     @Override
     public boolean validateArgs(ParsedCommand parsedCommand) {
-        //TMY_NOTE 参数检查
+
         if(!ValidationUtils.requireArgs(parsedCommand,1,"task add <taskName>")){
             return false;
         }
