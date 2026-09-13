@@ -37,12 +37,16 @@ public class AdvanceStatusCommand implements Command {
 
     @Override
     public boolean validateArgs(ParsedCommand parsedCommand) {
-        if(!ValidationUtils.requireArgs(parsedCommand,1,"task advance <taskId>")){
-            return false;
-        }
-        if(!ValidationUtils.requireInteger(parsedCommand.getPositionalArgs().getFirst(),"Task ID","task advance <taskId>")){
-            return false;
-        }
-        return  true;
+        return
+                ValidationUtils.requireArgs(
+                        parsedCommand,
+                        1,
+                        "task advance <taskId>"
+                ) &&
+                        ValidationUtils.requireInteger(
+                                parsedCommand.getPositionalArgs().getFirst(),
+                                "Task ID",
+                                "task advance <taskId>"
+                        );
     }
 }

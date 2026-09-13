@@ -33,12 +33,16 @@ public class DeleteBoardCommand implements Command {
 
     @Override
     public boolean validateArgs(ParsedCommand parsedCommand) {
-        if(!ValidationUtils.requireArgs(parsedCommand,1,"board delete <boardId>")){
-            return false;
-        }
-        if(!ValidationUtils.requireInteger(parsedCommand.getPositionalArgs().getFirst(),"Board ID","board delete <boardId>")){
-            return false;
-        }
-        return  true;
+        return
+                ValidationUtils.requireArgs(
+                        parsedCommand,
+                        1,
+                        "board delete <boardId>"
+                ) &&
+                ValidationUtils.requireInteger(
+                        parsedCommand.getPositionalArgs().getFirst(),
+                        "Board ID",
+                        "board delete <boardId>"
+                );
     }
 }

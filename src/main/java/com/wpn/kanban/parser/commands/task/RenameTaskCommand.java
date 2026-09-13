@@ -36,12 +36,16 @@ public class RenameTaskCommand implements Command {
 
     @Override
     public boolean validateArgs(ParsedCommand parsedCommand) {
-        if(!ValidationUtils.requireArgs(parsedCommand,2," task rename <taskId> <newTaskName>")){
-            return false;
-        }
-        if(!ValidationUtils.requireInteger(parsedCommand.getPositionalArgs().getFirst(),"Task ID","task rename <teskId> <newTeskName>")){
-            return false;
-        }
-        return true;
+        return
+                ValidationUtils.requireArgs(
+                        parsedCommand,
+                        2,
+                        "task rename <taskId> <newTaskName>"
+                ) &&
+                        ValidationUtils.requireInteger(
+                                parsedCommand.getPositionalArgs().getFirst(),
+                                "Task ID",
+                                "task rename <taskId> <newTaskName>"
+                        );
     }
 }

@@ -36,12 +36,17 @@ public class OpenBoardCommand implements Command {
 
     @Override
     public boolean validateArgs(ParsedCommand parsedCommand) {
-        if(!ValidationUtils.requireArgs(parsedCommand,1,"board open <boardId>")){
-            return false;
-        }
-        if(!ValidationUtils.requireInteger(parsedCommand.getPositionalArgs().getFirst(),"Board ID","board open <boardId>")){
-            return false;
-        }
-        return  true;
+        return
+                ValidationUtils.requireArgs(
+                        parsedCommand,
+                        1,
+                        "board open <boardId>"
+                ) &&
+                        ValidationUtils.requireInteger(
+                                parsedCommand.getPositionalArgs().getFirst(),
+                                "Board ID",
+                                "board open <boardId>"
+                        );
+
     }
 }

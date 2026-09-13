@@ -39,31 +39,23 @@ public class AddTaskCommand implements Command {
 
     @Override
     public boolean validateArgs(ParsedCommand parsedCommand) {
-
-        if(!ValidationUtils.requireArgs(parsedCommand,1,"task add <taskName>")){
-            return false;
-        }
-        /**
-         * Check if --desc is provided
-         * */
-        if(parsedCommand.getNamedArgs().containsKey("desc")){
-            if(!ValidationUtils.requireQuoted(
-                    parsedCommand,
-                    "desc",
-                    "taskDescription",
-                    "task add <taskName> --desc=\"<taskDescription>\"")
-            ){
-                return false;
-            }
-            if(!ValidationUtils.requireNonBlank(
-                    parsedCommand,
-                    "desc",
-                    "taskDescription",
-                    "task add <taskName> --desc=\"<taskDescription>\"")
-            ){
-                return false;
-            }
-        }
-        return true;
+        return ValidationUtils.requireArgs(
+                parsedCommand,
+                1,
+                "task add <taskName>"
+        ) &&
+                (
+                        !parsedCommand.getNamedArgs().containsKey("desc") || ValidationUtils.requireQuoted(
+                                parsedCommand,
+                                "desc",
+                                "taskDescription",
+                                "task add <taskName> --desc=\"<taskDescription>\""
+                        ) && ValidationUtils.requireNonBlank(
+                                parsedCommand,
+                                "desc",
+                                "taskDescription",
+                                "task add <taskName> --desc=\"<taskDescription>\""
+                        )
+                );
     }
 }

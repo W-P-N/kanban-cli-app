@@ -34,12 +34,16 @@ public class RenameBoardCommand implements Command {
 
     @Override
     public boolean validateArgs(ParsedCommand parsedCommand) {
-        if(!ValidationUtils.requireArgs(parsedCommand,2,"rename <boardId> <newBoardName>")){
-            return false;
-        }
-        if(!ValidationUtils.requireInteger(parsedCommand.getPositionalArgs().getFirst(),"Board ID","rename <boardId> <newBoardName>")){
-            return false;
-        }
-        return true;
+        return
+                ValidationUtils.requireArgs(
+                        parsedCommand,
+                        2,
+                        "board rename <boardId> <newBoardName>"
+                ) &&
+                        ValidationUtils.requireInteger(
+                                parsedCommand.getPositionalArgs().getFirst(),
+                                "Board ID",
+                                "board rename <boardId> <newBoardName>"
+                        );
     }
 }

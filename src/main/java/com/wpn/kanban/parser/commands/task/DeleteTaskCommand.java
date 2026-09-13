@@ -36,12 +36,16 @@ public class DeleteTaskCommand implements Command {
     }
     @Override
     public boolean validateArgs(ParsedCommand parsedCommand) {
-        if(!ValidationUtils.requireArgs(parsedCommand,1,"task delete <teskId>")){
-            return false;
-        }
-        if(!ValidationUtils.requireInteger(parsedCommand.getPositionalArgs().getFirst(),"task ID","task delete <taskId>")){
-            return false;
-        }
-        return true;
+        return
+                ValidationUtils.requireArgs(
+                        parsedCommand,
+                        1,
+                        "task delete <taskId>"
+                ) &&
+                        ValidationUtils.requireInteger(
+                                parsedCommand.getPositionalArgs().getFirst(),
+                                "task ID",
+                                "task delete <taskId>"
+                        );
     }
 }

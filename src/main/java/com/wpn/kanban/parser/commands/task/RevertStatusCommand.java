@@ -36,12 +36,16 @@ public class RevertStatusCommand implements Command {
 
     @Override
     public boolean validateArgs(ParsedCommand parsedCommand) {
-        if(!ValidationUtils.requireArgs(parsedCommand,1,"task revert <taskId>")){
-            return false;
-        }
-        if(!ValidationUtils.requireInteger(parsedCommand.getPositionalArgs().getFirst(),"Task ID","task revert <taskId>")){
-            return false;
-        }
-        return  true;
+        return
+                ValidationUtils.requireArgs(
+                        parsedCommand,
+                        1,
+                        "task revert <taskId>"
+                ) &&
+                        ValidationUtils.requireInteger(
+                                parsedCommand.getPositionalArgs().getFirst(),
+                                "Task ID",
+                                "task revert <taskId>"
+                        );
     }
 }
