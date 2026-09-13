@@ -8,6 +8,7 @@ import com.wpn.kanban.exceptions.kanbanexceptions.InvalidTaskIdException;
 import com.wpn.kanban.exceptions.kanbanexceptions.TaskNotFoundException;
 import com.wpn.kanban.parser.Command;
 import com.wpn.kanban.parser.ParsedCommand;
+import com.wpn.kanban.parser.commands.util.ValidationUtils;
 
 public class AdvanceStatusCommand implements Command {
     @Override
@@ -18,9 +19,6 @@ public class AdvanceStatusCommand implements Command {
     @Override
     public void execute(AppContext appContext, ParsedCommand parsedCommand) throws InvalidTaskIdException, TaskNotFoundException, InvalidStatusTransition {
         String taskId = parsedCommand.getPositionalArgs().poll();
-        if(taskId == null){
-            throw new InvalidTaskIdException("Invalid Task ID. Use 'task list' to get the list of tasks in the active board.");
-        }
         AppState appState = appContext.getAppState();
         Task foundTask = appState.getActiveBoard().findTask(taskId);
         if(foundTask == null) {
@@ -29,10 +27,22 @@ public class AdvanceStatusCommand implements Command {
         if(!foundTask.advanceTask()) {
             throw new InvalidStatusTransition("Task is already FINISHED. Cannot advance.");
         }
+        System.out.println("Task advance successfully");
     }
 
     @Override
     public String getName() {
         return "advance";
+    }
+
+    @Override
+    public boolean validateArgs(ParsedCommand parsedCommand) {
+        if(!ValidationUtils.requireArgs(parsedCommand,1,"task advance <taskId>")){
+            return false;
+        }
+        if(!ValidationUtils.requireInteger(parsedCommand.getPositionalArgs().getFirst(),"Task ID","task advance <taskId>")){
+            return false;
+        }
+        return  true;
     }
 }

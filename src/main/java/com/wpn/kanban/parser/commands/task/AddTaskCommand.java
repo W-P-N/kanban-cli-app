@@ -7,6 +7,7 @@ import com.wpn.kanban.exceptions.kanbanexceptions.NoActiveBoardException;
 import com.wpn.kanban.exceptions.kanbanexceptions.TaskAlreadyExistsException;
 import com.wpn.kanban.parser.Command;
 import com.wpn.kanban.parser.ParsedCommand;
+import com.wpn.kanban.parser.commands.util.ValidationUtils;
 
 import java.util.Deque;
 import java.util.Map;
@@ -30,13 +31,39 @@ public class AddTaskCommand implements Command {
         }
         Deque<String> posArgs = parsedCommand.getPositionalArgs();
         Map<String, String> namedArgs = parsedCommand.getNamedArgs();
-        if(parsedCommand.isUnquoted("desc")) {
-            System.out.println("Description must be in quotes. Usage: task add <taskName> --desc=\"description\"");
-            return;
-        }
         if(!activeBoard.addTask(posArgs.poll(), namedArgs.get("desc"))) {
             throw new TaskAlreadyExistsException("Task already exists. Please enter new task name.");
         }
         System.out.println("Task added successfully");
+    }
+
+    @Override
+    public boolean validateArgs(ParsedCommand parsedCommand) {
+
+        if(!ValidationUtils.requireArgs(parsedCommand,1,"task add <taskName>")){
+            return false;
+        }
+        /**
+         * Check if --desc is provided
+         * */
+        if(parsedCommand.getNamedArgs().containsKey("desc")){
+            if(!ValidationUtils.requireQuoted(
+                    parsedCommand,
+                    "desc",
+                    "taskDescription",
+                    "task add <taskName> --desc=\"<taskDescription>\"")
+            ){
+                return false;
+            }
+            if(!ValidationUtils.requireNonBlank(
+                    parsedCommand,
+                    "desc",
+                    "taskDescription",
+                    "task add <taskName> --desc=\"<taskDescription>\"")
+            ){
+                return false;
+            }
+        }
+        return true;
     }
 }
